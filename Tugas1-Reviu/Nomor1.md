@@ -1,23 +1,35 @@
 # Analisa file http.cap dengan wireshark
 
----
-
 ### 1. Versi HTTP yang digunakan
 
 Untuk mengidentifikasi versi HTTP yang digunakan, kita perlu mencari paket yang mengandung HTTP request (seperti GET atau POST) atau HTTP response (seperti 200 OK) terlebih dahulu. Hal ini dapat dilakukan dengan menggunakan filter http di Wireshark. Setelah itu, versi HTTP yang digunakan dapat dilihat pada kolom Info atau di bagian Hypertext Transfer Protocol di Packet Details.
 
 ![Versi HTTP](./image/versi-http.png)
 
-Pada gambar di atas, terlihat bahwa versi HTTP yang digunakan adalah HTTP/1.1. Hal ini dapat dilihat pada kolom Info di beberapa paket:
+Pada gambar di atas, versi HTTP yang digunakan dapat dilihat pada kolom Info di beberapa paket:
 
 - Pada paket nomor 4, tertulis: `GET /download.html HTTP/1.1`.
 - Pada paket nomor 27 dan 38, tertulis: `HTTP/1.1 200 OK`.
 
-Dengan demikian, dapat disimpulkan bahwa komunikasi HTTP tersebut menggunakan versi HTTP/1.1.
+Dengan demikian, dapat disimpulkan bahwa komunikasi HTTP tersebut menggunakan versi **`HTTP/1.1`**.
 
 ---
 
-### 2. IP address dari client maupun server
+### 2. IP address dari client dan server
+
+Dalam komunikasi HTTP, client bertindak sebagai pihak yang mengirim permintaan (request) ke server, sedangkan server bertugas merespons permintaan tersebut. Oleh karena itu, pada HTTP request, client akan menjadi source (sumber) dan server akan menjadi destination (tujuan). Sebaliknya, pada HTTP response, server akan menjadi source karena mengirim respons, dan client akan menjadi destination karena menerima respons.
+
+Berdasarkan gambar yang ada pada nomor 1:
+
+Pada paket nomor 4, client dengan alamat IP `145.254.160.237` mengirim request `GET /download.html HTTP/1.1` ke server dengan alamat IP `65.208.228.223`. Di sini, client bertindak sebagai source karena mengirim request, sedangkan server bertindak sebagai destination karena menerima request. Kemudian, pada paket nomor 38, server (`65.208.228.223`) mengirim respons `HTTP/1.1 200 OK` kembali ke client (`145.254.160.237`). Di sini, server bertindak sebagai source karena mengirim respons, dan client bertindak sebagai destination karena menerima respons.
+
+Selain itu, terdapat komunikasi dengan server lain, yaitu pada paket nomor 18 dan 27. Pada paket nomor 18, client (`145.254.160.237`) mengirim request `GET /pagead/ads?client=ca-pub-230919194867...` ke server dengan alamat IP `216.239.59.99`. Server ini kemungkinan besar adalah server penyedia iklan, karena alamat IP `216.239.59.99` termasuk dalam rentang IP yang dimiliki oleh Google, yang sering digunakan untuk layanan iklan seperti Google Ads. Pada paket nomor 27, server iklan (`216.239.59.99`) mengirim respons `HTTP/1.1 200 OK (text/html)` kembali ke client (`145.254.160.237`).
+
+Dengan demikian, dapat disimpulkan bahwa:
+
+- IP address client: **`145.254.160.237`**
+- IP address server utama: **`65.108.228.223`**
+- IP address server iklan: **`216.239.59.99`**
 
 ---
 
