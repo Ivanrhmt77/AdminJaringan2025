@@ -35,6 +35,14 @@ Dengan demikian, dapat disimpulkan bahwa:
 
 ### 3. Waktu client mengirim request
 
+Untuk mengetahui waktu client mengirim request, kita perlu melihat paket yang mengandung HTTP request (misalnya, GET atau POST).
+
+Berdasarkan gambar yang ada pada nomor 1:
+
+Pada paket nomor 4, client (`145.254.160.237`) mengirim request `GET /download.html HTTP/1.1` ke server (`65.208.228.223`). Waktu pengiriman request ini dapat dilihat di kolom Time pada Wireshark.
+
+Waktu yang tertera pada paket nomor 4 adalah `0.911310` detik , maka waktu client mengirim request adalah **`0.911310`** detik.
+
 ---
 
 ### 4. Waktu server menerima HTTP request dari client
