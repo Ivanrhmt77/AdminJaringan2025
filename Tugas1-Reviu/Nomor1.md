@@ -55,7 +55,7 @@ Buka Packet Details dari paket nomor 4 dan lihat pada bagian Hypertext Transfer 
 
 ![Response](./image/response.png)
 
-Pada gambar di atas, terlihat bahwa HTTP response dari request paket nomor 4 adalah paket nomor 38. Waktu yang tertera pada paket nomor 38 adalah `4.846969` detik. Dengan demikian waktu client mengirim request adalah **`4.846969`** detik.
+Pada gambar di atas, terlihat bahwa HTTP response dari request paket nomor 4 adalah paket nomor 38. Waktu yang tertera pada paket nomor 38 adalah `4.846969` detik. Dengan demikian waktu server menerima request adalah **`4.846969`** detik.
 
 ---
 
