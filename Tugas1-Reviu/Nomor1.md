@@ -41,11 +41,21 @@ Berdasarkan gambar yang ada pada nomor 1:
 
 Pada paket nomor 4, client (`145.254.160.237`) mengirim request `GET /download.html HTTP/1.1` ke server (`65.208.228.223`). Waktu pengiriman request ini dapat dilihat di kolom Time pada Wireshark.
 
-Waktu yang tertera pada paket nomor 4 adalah `0.911310` detik , maka waktu client mengirim request adalah **`0.911310`** detik.
+Waktu yang tertera pada paket nomor 4 adalah `0.911310` detik. Dengan demikian, waktu client mengirim request adalah **`0.911310`** detik.
 
 ---
 
 ### 4. Waktu server menerima HTTP request dari client
+
+Untuk mengetahui waktu server menerima HTTP request dari client, kita perlu mencari paket HTTP response yang sesuai dengan request tersebut. Caranya adalah dengan membuka paket HTTP request yang dikirim oleh client dan melihat informasi respons yang terkait. Pertama, klik dua kali pada paket HTTP request untuk membuka Packet Details. Kemudian, buka bagian Hypertext Transfer Protocol dan cari informasi "Response In: Frame [nomor paket]". Informasi ini menunjukkan paket yang berisi respons dari server terhadap request yang dikirim oleh client.
+
+Berdasarkan gambar nomor 1 :
+
+Buka Packet Details dari paket nomor 4 dan lihat pada bagian Hypertext Transfer Protocol untuk enemukan informasi tentang respons dari paket tersebut.
+
+![Response](./image/response.png)
+
+Pada gambar di atas, terlihat bahwa HTTP response dari request paket nomor 4 adalah paket nomor 38. Waktu yang tertera pada paket nomor 38 adalah `4.846969` detik. Dengan demikia waktu client mengirim request adalah **`4.846969`** detik.
 
 ---
 
