@@ -19,3 +19,8 @@ Berikut adalah daftar tugas yang tersedia dalam repository ini:
 
    - Deskripsi: 1. Analisa file http.cap dengan wireshark : Versi HTTP yang digunakan, IP address dari client maupun server, waktu dari client mengirimkan HTTP request., Waktu dari server mengirinmkan server dan berapa durasinya 2. Deskripsi gambar pada slide 3. rangkuman tahapan komunikasi menggunakan TCP
    - Link: [Tugas 1: Reviu](./Tugas1-Reviu/Reviu.md)
+
+---
+
+© 2025 Ivan Rahmat Prakasa | 2 D4 IT A
+Repository ini dibuat untuk memenuhi tugas mata kuliah Admin Jaringan 2025.
