@@ -23,4 +23,5 @@ Berikut adalah daftar tugas yang tersedia dalam repository ini:
 ---
 
 © 2025 Ivan Rahmat Prakasa | 2 D4 IT A
+
 Repository ini dibuat untuk memenuhi tugas mata kuliah Admin Jaringan 2025.
