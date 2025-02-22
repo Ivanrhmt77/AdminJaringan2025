@@ -102,4 +102,52 @@ Setelah data sampai ke perangkat tujuan, komunikasi harus diarahkan ke aplikasi 
 
 <br>
 
-## Nomor 3: Resume tahapan komunikasi menggunakan TCP
+## Nomor 3: Rangkuman tahapan komunikasi menggunakan TCP
+
+TCP adalah protokol komunikasi yang handal, berorientasi koneksi, dan memastikan pengiriman data secara terurut dan bebas kesalahan. Proses komunikasi TCP terdiri dari tiga tahap utama:
+
+### 1. Connection establishment using three-way handshaking
+
+![Three-way Handshake](./image/three-way-handshake.png)
+
+Proses ini digunakan untuk membangun koneksi antara dua perangkat (klien dan server) sebelum pertukaran data dimulai. Tahapannya adalah:
+
+- Langkah 1 (SYN): Klien mengirimkan paket SYN (Synchronize) ke server. Paket ini berisi nomor urut acak (sequence number) yang akan digunakan selama komunikasi.
+- Langkah 2 (SYN-ACK): Server merespons dengan paket SYN-ACK (Synchronize-Acknowledge). Paket ini berisi:
+  - ACK (Acknowledgment): Konfirmasi bahwa server menerima paket SYN dari klien.
+  - SYN: Permintaan sinkronisasi dari server ke klien dengan nomor urut acak milik server.
+- Langkah 3 (ACK): Klien mengirimkan paket ACK (Acknowledge) ke server untuk mengonfirmasi bahwa koneksi telah terbentuk.
+
+Setelah tiga langkah ini, koneksi TCP terbentuk dan siap untuk pertukaran data.
+
+### 2. Data transfer
+
+![Data Transfer](./image/data-transfer.png)
+
+Setelah koneksi terbentuk, data dapat dikirim antara klien dan server. Proses ini melibatkan:
+
+- Data dibagi menjadi segmen-segmen kecil yang dikirim secara berurutan.
+- Setiap segmen memiliki sequence number untuk memastikan urutan pengiriman.
+- Penerima mengirim ACK (Acknowledgment) untuk setiap segmen yang berhasil diterima.
+- Jika ada segmen yang hilang atau rusak, pengirim akan mengirim ulang segmen tersebut.
+- Flow Control digunakan untuk mengontrol laju pengiriman data agar sesuai dengan kemampuan penerima.
+- Error Detection memastikan data yang dikirim bebas dari kesalahan.
+
+### 3. Connection termination using four-way handshaking
+
+![Four-way Handshake](./image/four-way-handshake.png)
+
+Proses ini digunakan untuk menutup koneksi TCP setelah pertukaran data selesai. Karena koneksi TCP bersifat full-duplex (data dapat mengalir dalam dua arah secara independen), penutupan koneksi dilakukan dalam empat langkah:
+
+- Langkah 1 (FIN): Salah satu pihak (misalnya, klien) mengirim paket FIN (Finish) ke pihak lain (server) untuk menandakan bahwa ia ingin menutup koneksi dari arahnya.
+- Langkah 2 (ACK): Pihak yang menerima FIN (server) mengirim paket ACK (Acknowledge) untuk mengonfirmasi penerimaan permintaan penutupan.
+- Langkah 3 (FIN): Server mengirim paket FIN ke klien untuk menutup koneksi dari arahn
+- Langkah 4 (ACK): Klien mengirim paket ACK ke server untuk mengonfirmasi penutupan koneksi.
+
+Setelah ini, koneksi TCP ditutup sepenuhnya.
+
+### Ringkasan
+
+1. **Three-way Handshake**: Membangun koneksi TCP.
+2. **Data Transfer**: Mengirim data secara terurut dan handal.
+3. **Four-way Handshake**: Menutup koneksi TCP.
