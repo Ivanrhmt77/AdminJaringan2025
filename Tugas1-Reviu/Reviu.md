@@ -50,7 +50,7 @@ Waktu yang tertera pada paket nomor 4 adalah `0.911310` detik. Dengan demikian, 
 
 ### 4. Waktu server mengirim HTTP response dari client
 
-Untuk mengetahui waktu server menerima HTTP request dari client, kita perlu mencari paket HTTP response yang sesuai dengan request tersebut. Caranya adalah dengan membuka paket HTTP request yang dikirim oleh client dan melihat informasi respons yang terkait. Pertama, klik dua kali pada paket HTTP request untuk membuka Packet Details. Kemudian, buka bagian Hypertext Transfer Protocol dan cari informasi "Response In: Frame [nomor paket]". Informasi ini menunjukkan paket yang berisi respons dari server terhadap request yang dikirim oleh client.
+Untuk mengetahui waktu server menerima HTTP request dari client, kita perlu mencari paket HTTP response yang sesuai dengan request tersebut. Caranya adalah dengan membuka paket HTTP request yang dikirim oleh client dan melihat informasi respons yang terkait. Pertama, klik dua kali pada paket HTTP request untuk membuka Packet Details. Kemudian, buka bagian Hypertext Transfer Protocol dan cari informasi "Response In Frame: [nomor paket]". Informasi ini menunjukkan paket yang berisi respons dari server terhadap request yang dikirim oleh client.
 
 Buka Packet Details dari paket nomor 4 (HTTP request) dan lihat pada bagian Hypertext Transfer Protocol untuk menemukan informasi tentang respons dari paket tersebut.
 
@@ -81,3 +81,25 @@ Dengan demikian, waktu yang dibutuhkan untuk transfer dan response dari client k
 <br>
 
 ## Nomor 2: Analisis Gambar
+
+![Response](./image/type-of-data-deliveries.png)
+
+Gambar tersebut menunjukkan berbagai jenis pengiriman data dalam jaringan berdasarkan layer model OSI. Berikut adalah penjelasan dari proses yang terjadi dalam gambar:
+
+### 1. Node to Node: Data link layer
+
+Data link layer (Node to Node) bertanggung jawab mengirimkan data antar perangkat jaringan dalam satu segmen, seperti dari komputer ke router atau antar switch. Data dikirim dalam bentuk frame menggunakan alamat fisik (MAC address). Selain itu, lapisan ini juga menangani deteksi dan koreksi kesalahan agar data tidak rusak saat dikirim. Contoh protokol yang bekerja di sini adalah Ethernet (kabel) dan Wi-Fi (nirkabel).
+
+### 2. Host to Host: Network layer
+
+Network layer (Host to Host) berfungsi untuk mengirim data dari satu perangkat ke perangkat lain di jaringan yang lebih luas, seperti internet. Data dikemas dalam bentuk paket dan diberi alamat IP agar bisa mencapai tujuan yang benar. Layer ini juga menentukan jalur terbaik agar data dapat dikirim dengan efisien. Contoh protokol yang digunakan di sini adalah IP (Internet Protocol).
+
+### 3. Process to Process: Transport layer
+
+Transport layer (Process to Process) memastikan komunikasi antar aplikasi di perangkat yang berbeda berjalan dengan lancar. Data dikirim dalam bentuk segmen dan menggunakan nomor port agar sampai ke aplikasi yang tepat. TCP digunakan untuk pengiriman data yang harus akurat, seperti email dan transfer file, sedangkan UDP digunakan untuk komunikasi yang membutuhkan kecepatan, seperti streaming video dan game online.
+
+---
+
+<br>
+
+## Nomor 3: Resume tahapan komunikasi menggunakan TCP
