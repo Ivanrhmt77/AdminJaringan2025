@@ -84,19 +84,19 @@ Dengan demikian, waktu yang dibutuhkan untuk transfer dan response dari client k
 
 ![Response](./image/type-of-data-deliveries.png)
 
-Gambar tersebut menunjukkan berbagai jenis pengiriman data dalam jaringan berdasarkan layer model OSI. Berikut adalah penjelasan dari proses yang terjadi dalam gambar:
+Gambar tersebut menunjukkan berbagai jenis pengiriman data dalam jaringan berdasarkan lapisan model OSI. Berikut adalah penjelasan dari proses yang terjadi dalam gambar:
 
 ### 1. Node to Node: Data link layer
 
-Data link layer (Node to Node) bertanggung jawab mengirimkan data antar perangkat jaringan dalam satu segmen, seperti dari komputer ke router atau antar switch. Data dikirim dalam bentuk frame menggunakan alamat fisik (MAC address). Selain itu, lapisan ini juga menangani deteksi dan koreksi kesalahan agar data tidak rusak saat dikirim. Contoh protokol yang bekerja di sini adalah Ethernet (kabel) dan Wi-Fi (nirkabel).
+Komunikasi ini terjadi ketika dua perangkat dalam satu jaringan yang sama saling bertukar data, seperti komputer yang terhubung ke switch atau router. Data dikirim dalam bentuk frame dan menggunakan alamat fisik (MAC address) untuk memastikan sampai ke perangkat tujuan. Jika ada gangguan atau kesalahan dalam pengiriman, sistem akan mendeteksi dan memperbaikinya jika memungkinkan. Contohnya, ketika kita mengakses file di komputer lain dalam jaringan Wi-Fi rumah, data akan dikirim antar perangkat di Data Link Layer.
 
 ### 2. Host to Host: Network layer
 
-Network layer (Host to Host) berfungsi untuk mengirim data dari satu perangkat ke perangkat lain di jaringan yang lebih luas, seperti internet. Data dikemas dalam bentuk paket dan diberi alamat IP agar bisa mencapai tujuan yang benar. Layer ini juga menentukan jalur terbaik agar data dapat dikirim dengan efisien. Contoh protokol yang digunakan di sini adalah IP (Internet Protocol).
+Ketika dua perangkat berada di jaringan yang berbeda (misalnya, komputer kita mengakses server di internet), data harus melewati beberapa perangkat perantara seperti router. Dalam tahap ini, data dikemas dalam bentuk paket dan diberi alamat IP agar bisa dikirim ke perangkat tujuan yang benar. Router berperan dalam menentukan jalur terbaik bagi data agar sampai ke tujuan dengan efisien. Proses komunikasi ini terjadi di Network Layer, yang menangani perutean data di jaringan luas seperti internet.
 
 ### 3. Process to Process: Transport layer
 
-Transport layer (Process to Process) memastikan komunikasi antar aplikasi di perangkat yang berbeda berjalan dengan lancar. Data dikirim dalam bentuk segmen dan menggunakan nomor port agar sampai ke aplikasi yang tepat. TCP digunakan untuk pengiriman data yang harus akurat, seperti email dan transfer file, sedangkan UDP digunakan untuk komunikasi yang membutuhkan kecepatan, seperti streaming video dan game online.
+Setelah data sampai ke perangkat tujuan, komunikasi harus diarahkan ke aplikasi yang benar. Misalnya, jika kita sedang membuka browser sambil mendengarkan musik online, data dari internet harus sampai ke aplikasi yang sesuai (browser untuk website, media player untuk musik). Untuk mengatur ini, sistem menggunakan nomor port, sehingga data bisa dikirim ke aplikasi yang tepat. Protokol TCP memastikan data dikirim secara lengkap dan berurutan (seperti dalam pengiriman email atau unduhan file), sedangkan UDP lebih cepat tetapi tidak menjamin keutuhan data (digunakan untuk streaming video atau game online). Komunikasi ini berlangsung di Transport Layer.
 
 ---
 
