@@ -1,4 +1,8 @@
-# Admin Jaringan 2025
+<h1 align="center">
+  Admin Jaringan 2025
+</h1>
+
+<br>
 
 Repository ini berisi kumpulan tugas-tugas mata kuliah **Workshop Administrasi Jaringan** yang dikerjakan oleh:
 
