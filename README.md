@@ -1,6 +1,6 @@
 # Admin Jaringan 2025
 
-Repository ini berisi kumpulan tugas-tugas mata kuliah **Admin Jaringan 2025** yang dikerjakan oleh:
+Repository ini berisi kumpulan tugas-tugas mata kuliah **Workshop Administrasi Jaringan 2025** yang dikerjakan oleh:
 
 - **Nama:** Ivan Rahmat Prakasa
 - **NRP:** 3123600005
@@ -24,4 +24,4 @@ Berikut adalah daftar tugas yang tersedia dalam repository ini:
 
 © 2025 Ivan Rahmat Prakasa | 2 D4 IT A
 
-Repository ini dibuat untuk memenuhi tugas mata kuliah Admin Jaringan 2025.
+Repository ini dibuat untuk memenuhi tugas mata kuliah Workshop Administrasi Jaringan 2025.
