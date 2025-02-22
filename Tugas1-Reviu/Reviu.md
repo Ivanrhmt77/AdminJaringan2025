@@ -1,4 +1,6 @@
-# Tugas 1: Reviu
+<h1 align="center">
+  Tugas 1: Reviu
+</h1>
 
 ## Nomor 1: Analisa file http.cap dengan wireshark
 
@@ -56,7 +58,7 @@ Buka Packet Details dari paket nomor 4 (HTTP request) dan lihat pada bagian Hype
 
 Pada gambar di atas, terlihat bahwa HTTP response dari request paket nomor 4 adalah paket nomor 38. Waktu yang tertera pada paket nomor 38 adalah `4.846969` detik. Dengan demikian waktu server menerima request adalah **`4.846969`** detik.
 
-### 5. waktu yang dibutuhkan untuk transfer dan response dari client ke server
+### 5. Waktu yang dibutuhkan untuk transfer dan response dari client ke server
 
 Untuk menghitung waktu yang dibutuhkan dari client mengirim request hingga server memberikan respons, kita perlu menghitung selisih waktu antara paket request dan paket response.
 
