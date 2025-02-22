@@ -1,6 +1,7 @@
 <h1 align="center">
   Tugas 1: Reviu
 </h1>
+
 <br>
 
 ## Nomor 1: Analisa file http.cap dengan wireshark
@@ -76,5 +77,7 @@ Waktu respons - Waktu request = 4.846969 - 0.911310 = 3.935659 detik
 Dengan demikian, waktu yang dibutuhkan untuk transfer dan response dari client ke server adalah **`3.935659`** detik.
 
 ---
+
+<br>
 
 ## Nomor 2: Analisis Gambar
