@@ -6,36 +6,61 @@
 
 ## Komponen dalam sebuah proses
 
-Proses terdiri dari dua bagian utama, yaitu **address space** dan **Struktur data dalam kernel**.
-Address space adalah kumpulan Memory pages yang telah dialokasikan oleh kernel untuk digunakan oleh proses. Memory pages adalah unit dasar dalam manajemen memori, biasanya berukuran `4KiB` atau `8KiB`. Halaman-halaman ini digunakan untuk menyimpan kode program, data, dan stack proses.
-Disisi lain, Struktur data dalam kernel digunakan untuk melacak berbagai informasi tentang proses, seperti status proses, prioritas, parameter penjadwalan, dan sebagainya.
+Sebuah process terdiri dari address space dan struktur data dalam kernel. Address space adalah kumpulan halaman memori yang ditandai oleh kernel untuk digunakan oleh process. Halaman ini digunakan untuk menyimpan code, data, dan stack dari process. Kernel juga menyimpan berbagai informasi tentang process dalam struktur data internalnya, seperti status process, priority, scheduling parameters, dan resources yang digunakan. Resources yang dikelola kernel untuk sebuah process meliputi Halaman memori yang menyimpan code dan data program, File descriptors untuk file yang terbuka, dan Attributes yang menggambarkan keadaan process.
 
-Bayangkan sebuah proses sebagai wadah yang berisi berbagai sumber daya yang dikelola oleh kernel atas nama program yang sedang berjalan. Sumber daya ini mencakup **memory pages** untuk kode dan data program, **file descriptor** yaitu referensi ke file yang sudah dibuka, **various attributes** yang menggambarkan keadaan proses.
+Kernel mencatat beberapa informasi penting tentang process, termasuk:
 
-Kernel menggunakan struktur data internal untuk mencatat berbagai informasi tentang setiap proses, seperti:
+- Address space map dari process
+- Current status process (running, sleeping, dll.)
+- Priority process
+- Resource usage (CPU, memory, dll.)
+- Files dan network ports yang dibuka
+- Signal mask (signals yang diblokir)
+- Process owner (user ID yang menjalankan process)
 
-- Peta proses address space
-- Status proses (running, sleep, dll)
-- Prioritas proses
-- Sumber daya yang digunakan (CPU, memorym dll)
-- File dan port jaringan yang sedang dibuka oleh proses
-- Signal mask, yaitu sinyal yang diblokir oleh proses
-- Pemilik proses, yaitu UID dari pengguna yang menjalankan proses
+Thread adalah execution context dalam process. Sebuah process bisa memiliki banyak thread yang berbagi address space dan resources yang sama. Thread lebih ringan daripada process karena lebih cepat dibuat dan dihancurkan.
 
-Thread adalah unit eksekusi di dalam sebuah proses. Sebuah proses dapat memiliki banyak thread, dan semua thread berbagi address space serta sumber daya lainnya. Thread sering digunakan untuk menjalankan tugas secara paralel dalam sebuah proses. Karena thread lebih ringan daripada proses, thread lebih cepat dibuat dan dihancurkan dibandingkan proses. Oleh karena itu, thread sering disebut sebagai "lightweight process".
-
-Contohnya, misal dalam sebuah web server, proses utama bertugas menerima request dari client. Setiap kali ada koneksi masuk, web server membuat thread baru untuk menangani request tersebut. Proses utama adalah web server itu sendiri. Setiap thread menangani satu request dari client. Karena memiliki banyak thread, web server bisa melayani banyak permintaan sekaligus.
+Contohnya dalam web server, process utama mendengarkan koneksi masuk dan membuat thread baru untuk menangani setiap request. Setiap thread menangani satu request, tetapi web server dapat menangani banyak request sekaligus karena memiliki banyak thread. Di sini, web server adalah process, sementara tiap request diproses oleh thread terpisah dalam process tersebut.
 
 ### The PID: process ID number
 
-Setiap proses memiliki nomor identifikasi unik, yang disebut PID (Process ID). PID adalah angka yang diberikan oleh kernel ketika sebuah proses dibuat. PID digunakan dalam berbagai sistem operasi, misalnya mengirim sinyal ke suatu proses, atau melacak proses yang sedang berjalan.
+Setiap process memiliki PID unik yang diberikan oleh kernel saat process dibuat. PID digunakan dalam system calls, seperti mengirim signals ke process.
 
-Dalam sistem modern, ada konsep "namespace", yang memungkinkan beberapa proses memiliki PID yang sama di lingkungan yang berbeda. Namespace ini digunakan dalam container, yaitu lingkungan yang terisolasi yang memiliki tampilan sistem sendiri.
+Dalam sistem modern, ada konsep "namespace", yang memungkinkan beberapa process memiliki PID yang sama dalam lingkungan terisolasi seperti containers, yang digunakan untuk menjalankan beberapa instance aplikasi secara independen.
 
 ### The PPID: parent process ID number
 
-Setiap proses juga memiliki parent process, yaitu proses yang membuatnya. PPID adalah PID dari parent process. PPID sering digunakan untuk mengirim sinyal dari child process ke parant process, atau mengelola hubungan antara proses yang saling terkait.
+Setiap process memiliki parent process yang membuatnya. PPID adalah PID dari parent process dan digunakan dalam system calls, misalnya untuk mengirim signals ke parent.
 
 ### The UID and EUID: user ID and effective user ID
 
-Setiap proses memiliki informasi tentang user yang menjalankannya, yaitu UID (User ID) adalah ID user yang memulai proses. Sedangkan EUID (Efective User ID) adalah ID yang digunakan untuk menentukan hak akses proses. EUID sangat penting dalam hak akses file, jaringan, dan sumber daya lainnya. Misalnya, program yang berjalan dengan EUID root bisa mengakses hampir semua sumber daya sistem, meskipun user yang menjalankannya bukan root.
+- UID adalah user ID dari pengguna yang memulai process.
+- EUID menentukan hak akses process terhadap files, network ports, dan resources lainnya.
+
+## Siklus hidup sebuah proses
+
+### Signals
+
+### kill: mengirim sinyal
+
+## PS: proses pemantauan
+
+## Pemantauan interaktif dengan top
+
+## Nice and renice: mengubah prioritas dari sebuah proses
+
+## The /proc filesystem
+
+## Strace and truss
+
+## Runaway processes
+
+## Periodic processes
+
+### cron: schedule command
+
+### format of crontab
+
+### Systemd timer
+
+### Common use for scheduled tasks
