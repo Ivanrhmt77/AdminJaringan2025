@@ -6,61 +6,25 @@
 
 ## Komponen dalam sebuah proses
 
-Sebuah process terdiri dari address space dan struktur data dalam kernel. Address space adalah kumpulan halaman memori yang ditandai oleh kernel untuk digunakan oleh process. Halaman ini digunakan untuk menyimpan code, data, dan stack dari process. Kernel juga menyimpan berbagai informasi tentang process dalam struktur data internalnya, seperti status process, priority, scheduling parameters, dan resources yang digunakan. Resources yang dikelola kernel untuk sebuah process meliputi Halaman memori yang menyimpan code dan data program, File descriptors untuk file yang terbuka, dan Attributes yang menggambarkan keadaan process.
+Sebuah proses dalam sistem operasi terdiri dari dua bagian utama, yaitu **address space** (ruang memori yang digunakan untuk menyimpan kode, data, dan stack program) dan **struktur data kernel** (yang menyimpan informasi seperti status proses, prioritas, dan sumber daya yang digunakan). Proses ini berfungsi sebagai wadah yang mengelola semua sumber daya yang diperlukan untuk menjalankan sebuah program, seperti memori, file yang dibuka, dan atribut lainnya.
 
-Kernel mencatat beberapa informasi penting tentang process, termasuk:
+### Thread
 
-- Address space map dari process
-- Current status process (running, sleeping, dll.)
-- Priority process
-- Resource usage (CPU, memory, dll.)
-- Files dan network ports yang dibuka
-- Signal mask (signals yang diblokir)
-- Process owner (user ID yang menjalankan process)
+Thread adalah unit eksekusi yang berjalan di dalam sebuah proses. Sebuah proses dapat memiliki banyak thread, dan semua thread tersebut berbagi ruang memori dan sumber daya yang sama. Thread memungkinkan program untuk melakukan banyak tugas secara paralel, dan karena lebih ringan dibandingkan proses, pembuatan dan penghapusannya lebih efisien.
 
-Thread adalah execution context dalam process. Sebuah process bisa memiliki banyak thread yang berbagi address space dan resources yang sama. Thread lebih ringan daripada process karena lebih cepat dibuat dan dihancurkan.
+### PID (Process ID)
 
-Contohnya dalam web server, process utama mendengarkan koneksi masuk dan membuat thread baru untuk menangani setiap request. Setiap thread menangani satu request, tetapi web server dapat menangani banyak request sekaligus karena memiliki banyak thread. Di sini, web server adalah process, sementara tiap request diproses oleh thread terpisah dalam process tersebut.
+Setiap proses memiliki PID (Process ID) yang unik, yaitu nomor identifikasi yang diberikan oleh kernel saat proses dibuat. PID ini digunakan untuk mengidentifikasi proses dalam berbagai operasi sistem, seperti mengirim sinyal atau memantau proses.
 
-### The PID: process ID number
+### Namespaces
 
-Setiap process memiliki PID unik yang diberikan oleh kernel saat process dibuat. PID digunakan dalam system calls, seperti mengirim signals ke process.
+Namespaces adalah fitur yang memungkinkan beberapa proses memiliki PID yang sama tetapi dalam lingkungan yang terisolasi. Ini digunakan dalam teknologi container, di mana setiap container memiliki lingkungannya sendiri yang terpisah, memungkinkan beberapa aplikasi berjalan secara independen di sistem yang sama.
 
-Dalam sistem modern, ada konsep "namespace", yang memungkinkan beberapa process memiliki PID yang sama dalam lingkungan terisolasi seperti containers, yang digunakan untuk menjalankan beberapa instance aplikasi secara independen.
+### PPID (Parent Process ID)
 
-### The PPID: parent process ID number
+PPID (Parent Process ID) adalah PID dari proses induk yang membuat proses tersebut. Setiap proses (kecuali proses utama sistem) memiliki proses induk, dan PPID membantu sistem melacak hubungan hierarkis antara proses.
 
-Setiap process memiliki parent process yang membuatnya. PPID adalah PID dari parent process dan digunakan dalam system calls, misalnya untuk mengirim signals ke parent.
+### UID (User ID) dan EUID (Effective User ID)
 
-### The UID and EUID: user ID and effective user ID
-
-- UID adalah user ID dari pengguna yang memulai process.
-- EUID menentukan hak akses process terhadap files, network ports, dan resources lainnya.
-
-## Siklus hidup sebuah proses
-
-### Signals
-
-### kill: mengirim sinyal
-
-## PS: proses pemantauan
-
-## Pemantauan interaktif dengan top
-
-## Nice and renice: mengubah prioritas dari sebuah proses
-
-## The /proc filesystem
-
-## Strace and truss
-
-## Runaway processes
-
-## Periodic processes
-
-### cron: schedule command
-
-### format of crontab
-
-### Systemd timer
-
-### Common use for scheduled tasks
+- UID (User ID) adalah ID pengguna yang menjalankan proses.
+- EUID (Effective User ID) adalah ID yang digunakan oleh proses untuk menentukan izin akses ke sumber daya seperti file, port jaringan, atau operasi sistem lainnya. EUID ini memastikan bahwa proses hanya dapat mengakses sumber daya yang diizinkan.
