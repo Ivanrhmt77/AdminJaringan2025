@@ -148,3 +148,10 @@ Priority value adalah nilai prioritas sebenarnya yang digunakan kernel Linux unt
 
 Nilai nice default adalah 0. Semakin rendah nilai nice, semakin tinggi prioritas proses.
 
+## The /proc Filesystem
+
+Direktori /proc adalah sebuah pseudo-filesystem di Linux yang digunakan oleh kernel untuk mengekspos berbagai informasi tentang status sistem, termasuk status proses. Meskipun namanya merujuk pada "process", /proc juga berisi informasi lain seperti statistik sistem.
+
+Setiap proses direpresentasikan oleh direktori di /proc yang dinamai sesuai dengan PID-nya. Setiap direktori proses berisi berbagai file yang menyediakan informasi detail tentang proses tersebut, seperti command line, environment variables, file descriptors, dan lainnya. Tools seperti ps dan top membaca informasi status proses dari direktori /proc ini. Dengan demikian, /proc merupakan sumber informasi penting untuk memantau dan memahami proses serta kondisi sistem secara keseluruhan.
+
+![process-information](./image/process-information.png)
