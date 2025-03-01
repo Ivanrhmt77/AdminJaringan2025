@@ -284,6 +284,7 @@ Menjalankan sebuah proses `sleep 1000`.
 Memantau proses menggunakan `ps aux` dan mengirim sinyal TERM pada proses dengan PID `32` menggunakan `kill`.
 
 ![Sinyal Terminated](./image/Terminated.png)
+
 Proses dengan PID `32` berhasil dihentikan dengan bersih.
 
 ### Mengubah Prioritas Proses dengan nice dan renice
