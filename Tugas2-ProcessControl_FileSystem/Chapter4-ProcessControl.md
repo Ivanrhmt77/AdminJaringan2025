@@ -117,3 +117,34 @@ $ pidof /usr/bin/firefox
 Perintah top memberikan tampilan real-time yang dinamis dari sistem yang sedang berjalan. top menampilkan informasi ringkasan sistem serta daftar proses atau thread yang sedang dikelola oleh kernel Linux. Informasi yang ditampilkan, seperti jenis, urutan, dan ukuran data, dapat dikonfigurasi oleh pengguna dan disimpan agar tetap berlaku setelah restart. Secara default, tampilan top diperbarui setiap 1-2 detik, tergantung pada sistem.
 
 Ada juga perintah htop, yang merupakan alat pemantau proses interaktif untuk sistem Unix. htop adalah aplikasi berbasis teks (untuk konsol atau terminal X) dan memerlukan ncurses. htop mirip dengan top, tetapi memungkinkan pengguna untuk menggulir secara vertikal dan horizontal, sehingga semua proses yang berjalan di sistem dapat dilihat, termasuk command line lengkapnya. htop juga memiliki antarmuka pengguna yang lebih baik dan lebih banyak opsi untuk operasi.
+
+## Nice and Renice: Mengubah Prioritas Proses
+
+Niceness adalah nilai numerik yang memberikan petunjuk kepada kernel tentang bagaimana suatu proses harus diperlakukan relatif terhadap proses lain yang bersaing untuk mendapatkan CPU. Nilai niceness yang tinggi berarti prioritas proses rendah (proses bersikap "baik"), sedangkan nilai rendah atau negatif berarti prioritas tinggi (proses tidak terlalu "baik"). Rentang nilai niceness bervariasi antar sistem, misalnya di Linux rentangnya adalah -20 hingga +19.
+
+Proses dengan prioritas rendah akan mendapatkan waktu CPU lebih sedikit dibandingkan proses dengan prioritas tinggi. Misalnya, jika Anda menjalankan tugas yang intensif CPU di latar belakang, Anda dapat memulainya dengan nilai niceness tinggi agar tidak mengganggu proses lain.
+
+Perintah nice digunakan untuk memulai proses dengan nilai niceness tertentu. Sintaksnya:
+
+```bash
+nice -n nice_val [command]
+
+# Contoh
+nice -n 10 sh infinite.sh &
+```
+
+Perintah renice digunakan untuk mengubah nilai niceness proses yang sedang berjalan. Sintaksnya:
+
+```bash
+renice -n nice_val -p pid
+
+# Contoh
+renice -n 10 -p 1234
+```
+
+Priority value adalah nilai prioritas sebenarnya yang digunakan kernel Linux untuk menjadwalkan tugas. Di Linux, rentang prioritas adalah 0 hingga 139, di mana 0-99 untuk tugas real-time dan 100-139 untuk pengguna. Hubungan antara nilai nice dan priority adalah:
+
+> priotiry_value = 20 + nice_value
+
+Nilai nice default adalah 0. Semakin rendah nilai nice, semakin tinggi prioritas proses.
+
