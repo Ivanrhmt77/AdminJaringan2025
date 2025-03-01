@@ -42,12 +42,12 @@ Signals adalah notifikasi yang dikirim ke proses untuk memberi tahu terjadinya s
 Beberapa signal penting termasuk:
 
 - **KILL**: Menghentikan proses secara paksa (tidak bisa diabaikan).
-- **INT**: Dikirim saat <Control-C> ditekan, meminta proses berhenti.
+- **INT**: Dikirim saat <CTRL-C> ditekan, meminta proses berhenti.
 - **TERM**: Meminta proses berhenti dengan bersih.
 - **HUP**: Biasanya digunakan untuk meminta daemon restart.
 - **QUIT**: Mirip TERM, tetapi menghasilkan core dump jika tidak ditangani.
 
-### `kill`: mengirim signals
+### kill: mengirim signals
 
 Perintah kill digunakan untuk mengirim signal ke proses. Secara default, kill mengirimkan signal TERM. Sintaksnya adalah:
 
@@ -200,3 +200,73 @@ Selain itu, perintah lsof dapat digunakan untuk melihat file yang dibuka oleh pr
 ```bash
 lsof -p pid
 ```
+
+## Periodic Processes
+
+### cron: menjadwalkan perintah
+
+cron adalah alat tradisional untuk menjalankan perintah pada jadwal yang telah ditentukan. cron berjalan saat sistem boot dan terus beroperasi selama sistem aktif. cron membaca file konfigurasi (disebut crontab) yang berisi daftar perintah dan waktu eksekusinya. Perintah dijalankan menggunakan shell (sh), sehingga hampir semua perintah yang dapat dijalankan manual dapat dijadwalkan dengan cron.
+
+File crontab disimpan di /var/spool/cron (Linux) atau /var/cron/tabs (FreeBSD). Format crontab terdiri dari lima field untuk menentukan menit, jam, hari, bulan, dan hari dalam minggu, diikuti oleh perintah yang akan dijalankan.
+
+```bash
+*     *     *     *     *  perintah yang akan dijalankan
+-     -     -     -     -
+|     |     |     |     |
+|     |     |     |     +----- hari dalam seminggu (0 - 6) (Minggu=0)
+|     |     |     +------- bulan (1 - 12)
+|     |     +--------- tanggal (1 - 31)
+|     +----------- jam (0 - 23)
++------------- menit (0 - 59)
+```
+
+Contoh:
+
+```bash
+30 2 * * * /path/to/command  # Menjalankan perintah setiap hari pukul 02:30
+```
+
+### crontab Management
+
+Perintah crontab digunakan untuk mengelola crontab. Opsi -e untuk mengedit, -l untuk menampilkan, dan -r untuk menghapus crontab.
+
+### Systemd Timer
+
+Systemd timer adalah alternatif modern untuk cron. Timer diaktifkan oleh unit service yang sesuai dan dapat dijadwalkan berdasarkan waktu, boot sistem, atau event tertentu. Perintah systemctl list-timers digunakan untuk menampilkan timer yang aktif. Contoh:
+
+```bash
+$ systemctl list-timers
+
+NEXT                         LEFT          LAST                         PASSED       UNIT                         ACTIVATES
+Fri 2021-10-15 00:00:00 UTC  1h 1min left Thu 2021-10-14 00:00:00 UTC  22h ago      logrotate.timer              logrotate.service
+
+1 timers listed.
+```
+
+File konfigurasi timer (berakhiran .timer) menentukan jadwal dan akurasi eksekusi.
+
+### Penggunaan umum untuk scheduled tasks
+
+1. **Mengirim Email:**
+   Menjadwalkan pengiriman email otomatis, seperti laporan harian atau hasil eksekusi perintah. Contoh:
+
+```bash
+30 4 25 * * /usr/bin/mail -s "Monthly report"
+    abdou@admin.com%Receive the monthly report for the month of July!%%Sincerely,%cron%
+```
+
+2. **Membersihkan Filesystem:**
+   Menjalankan script untuk menghapus file lama, seperti file di direktori trash. Contoh:
+
+```bash
+0 0 * * * /usr/bin/find /home/abdou/.local/share/Trash/files -mtime +30 -exec /bin/rm -f {} \;
+```
+
+3. **Rotasi Log File:**
+   Memecah file log menjadi segmen berdasarkan ukuran atau tanggal untuk mempertahankan versi lama.
+
+4. **Menjalankan Batch Jobs:**
+   Menjadwalkan tugas panjang seperti pemrosesan pesan antrian atau ETL (Extract, Transform, Load).
+
+5. **Backup dan Mirroring:**
+   Menjadwalkan backup atau sinkronisasi direktori ke sistem remote menggunakan rsync.
