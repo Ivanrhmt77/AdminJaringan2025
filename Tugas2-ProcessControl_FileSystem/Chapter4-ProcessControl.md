@@ -64,3 +64,50 @@ kill [-signal] pid
 killall firefox  # Menghentikan semua proses Firefox
 pkill -u abdoufermat  # Menghentikan semua proses milik pengguna abdoufermat
 ```
+
+## PS: memantau proses
+
+Perintah ps adalah alat utama administrator sistem untuk memantau proses. Meskipun versi ps berbeda dalam argumen dan tampilannya, semua memberikan informasi yang serupa. ps dapat menampilkan PID, UID, prioritas, terminal kontrol, penggunaan memori, konsumsi CPU, dan status proses (seperti running, stopped, atau sleeping).
+
+Untuk mendapatkan gambaran umum sistem, jalankan ps aux. Opsi a menampilkan proses semua pengguna, u memberikan informasi detail, dan x menampilkan proses yang tidak terhubung ke terminal. Contoh:
+
+```bash
+$ ps aux | head -8
+USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
+root         1  0.0  0.0  22556  2584 ?        Ss   2019   0:02 /sbin/init
+root         2  0.0  0.0      0     0 ?        S    2019   0:00 [kthreadd]
+root         3  0.0  0.0      0     0 ?        I<   2019   0:00 [rcu_gp]
+root         4  0.0  0.0      0     0 ?        I<   2019   0:00 [rcu_par_gp]
+root         6  0.0  0.0      0     0 ?        I<   2019   0:00 [kworker/0:0H-kblockd]
+root         8  0.0  0.0      0     0 ?        I<   2019   0:00 [mm_percpu_wq]
+root         9  0.0  0.0      0     0 ?        S    2019   0:00 [ksoftirqd/0]
+```
+
+![process-explanation](./data/process-explanation.png)
+
+Opsi lain yang berguna adalah lax, yang memberikan informasi teknis lebih rinci tentang proses. lax lebih cepat daripada aux karena tidak perlu mengurai nama pengguna dan grup. Contoh:
+
+```bash
+$ ps lax | head -8
+F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
+4     0     1     0  20   0  22556  2584 -      Ss   ?          0:02 /sbin/init
+1     0     2     0  20   0      0     0 -      S    ?          0:00 [kthreadd]
+1     0     3     2  20   0      0     0 -      I<   ?          0:00 [rcu_gp]
+1     0     4     2  20   0      0     0 -      I<   ?          0:00 [rcu_par_gp]
+1     0     6     2  20   0      0     0 -      I<   ?          0:00 [kworker/0:0H-kblockd]
+1     0     8     2  20   0      0     0 -      I<   ?          0:00 [mm_percpu_wq]
+1     0     9     2  20   0      0     0 -      S    ?          0:00 [ksoftirqd/0]
+```
+
+Untuk mencari proses tertentu, gunakan grep untuk menyaring output ps. Contoh:
+
+```bash
+$ ps aux | grep -v grep | grep firefox
+```
+
+Untuk menentukan PID suatu proses, gunakan pgrep atau pidof. Contoh:
+
+```bash
+$ pgrep firefox
+$ pidof /usr/bin/firefox
+```
