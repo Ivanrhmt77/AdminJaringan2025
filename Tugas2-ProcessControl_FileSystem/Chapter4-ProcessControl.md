@@ -155,3 +155,28 @@ Direktori /proc adalah sebuah pseudo-filesystem di Linux yang digunakan oleh ker
 Setiap proses direpresentasikan oleh direktori di /proc yang dinamai sesuai dengan PID-nya. Setiap direktori proses berisi berbagai file yang menyediakan informasi detail tentang proses tersebut, seperti command line, environment variables, file descriptors, dan lainnya. Tools seperti ps dan top membaca informasi status proses dari direktori /proc ini. Dengan demikian, /proc merupakan sumber informasi penting untuk memantau dan memahami proses serta kondisi sistem secara keseluruhan.
 
 ![process-information](./image/process-information.png)
+
+## Strace and Truss
+
+Untuk memahami aktivitas suatu proses, strace di Linux atau truss di FreeBSD dapat digunakan. Perintah ini melacak system calls dan signals yang dilakukan oleh proses. Alat ini berguna untuk debugging program atau menganalisis perilaku suatu program.
+
+Contoh penggunaan strace pada proses top (dengan PID 5810):
+
+```bash
+$ strace -p 5810
+
+gettimeofday({1197646605,  123456}, {300, 0}) = 0
+open("/proc", O_RDONLY|O_NONBLOCK|O_LARGEFILE|O_DIRECTORY) = 7
+fstat64(7, {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+fcntl64(7, F_SETFD, FD_CLOEXEC)          = 0
+getdents64(7, /* 3 entries */, 32768)   = 72
+getdents64(7, /* 0 entries */, 32768)   = 0
+stat64("/proc/1", {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
+open("/proc/1/stat", O_RDONLY)           = 8
+read(8, "1 (init) S 0 1 1 0 -1 4202752"..., 1023) = 168
+close(8)                                = 0
+
+[...]
+```
+
+Output yang dihasilkan menampilkan berbagai system calls, seperti membaca waktu saat ini, membuka direktori /proc, dan membaca file /proc/1/stat untuk mendapatkan informasi tentang proses init. Dengan strace atau truss, aktivitas proses dapat dianalisis secara mendetail.
