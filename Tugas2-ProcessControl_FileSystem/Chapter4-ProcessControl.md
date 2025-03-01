@@ -83,7 +83,7 @@ root         8  0.0  0.0      0     0 ?        I<   2019   0:00 [mm_percpu_wq]
 root         9  0.0  0.0      0     0 ?        S    2019   0:00 [ksoftirqd/0]
 ```
 
-![process-explanation](./data/process-explanation.png)
+![process-explanation](./image/process-explanation.png)
 
 Opsi lain yang berguna adalah lax, yang memberikan informasi teknis lebih rinci tentang proses. lax lebih cepat daripada aux karena tidak perlu mengurai nama pengguna dan grup. Contoh:
 
