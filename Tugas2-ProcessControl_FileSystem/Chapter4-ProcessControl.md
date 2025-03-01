@@ -180,3 +180,23 @@ close(8)                                = 0
 ```
 
 Output yang dihasilkan menampilkan berbagai system calls, seperti membaca waktu saat ini, membuka direktori /proc, dan membaca file /proc/1/stat untuk mendapatkan informasi tentang proses init. Dengan strace atau truss, aktivitas proses dapat dianalisis secara mendetail.
+
+## Runaway processes
+
+Proses yang tidak merespons sistem dan berjalan di luar kendali disebut runaway processes. Proses ini mengabaikan prioritas penjadwalan dan menggunakan 100% CPU, menyebabkan sistem menjadi lambat. Untuk menghentikan proses tersebut, perintah kill dapat digunakan. Jika proses tidak merespons sinyal TERM, sinyal KILL dapat digunakan untuk memaksa penghentian. Contoh:
+
+```bash
+kill -9 pid
+
+atau
+
+kill -KILL pid
+```
+
+Untuk menyelidiki penyebab runaway process, alat seperti strace atau truss dapat digunakan. Jika proses menghasilkan output yang berlebihan, hal ini dapat memenuhi filesystem. Perintah df -h digunakan untuk memeriksa penggunaan filesystem, dan du digunakan untuk menemukan file atau direktori terbesar.
+
+Selain itu, perintah lsof dapat digunakan untuk melihat file yang dibuka oleh proses tersebut. Contoh:
+
+```bash
+lsof -p pid
+```
