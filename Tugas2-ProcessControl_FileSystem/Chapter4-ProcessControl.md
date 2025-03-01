@@ -276,9 +276,11 @@ File konfigurasi timer (berakhiran .timer) menentukan jadwal dan akurasi eksekus
 ### Mengirim sinyal ke proses
 
 ![Sleep 1000](./image/sleep.png)
+
 Menjalankan sebuah proses `sleep 1000`.
 
 ![Sinyal TERM](./image/term.png)
+
 Memantau proses menggunakan `ps aux` dan mengirim sinyal TERM pada proses dengan PID `32` menggunakan `kill`.
 
 ![Sinyal Terminated](./image/Terminated.png)
