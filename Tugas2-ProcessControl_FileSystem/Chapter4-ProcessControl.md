@@ -28,3 +28,39 @@ PPID (Parent Process ID) adalah PID dari proses induk yang membuat proses terseb
 
 - UID (User ID) adalah ID pengguna yang menjalankan proses.
 - EUID (Effective User ID) adalah ID yang digunakan oleh proses untuk menentukan izin akses ke sumber daya seperti file, port jaringan, atau operasi sistem lainnya. EUID ini memastikan bahwa proses hanya dapat mengakses sumber daya yang diizinkan.
+
+## Lifecycle suatu proses
+
+Untuk membuat proses baru, sebuah proses menggunakan system call fork untuk menyalin dirinya sendiri. fork menghasilkan proses anak yang identik dengan proses induk, tetapi memiliki PID yang berbeda. Pada Linux, fork sebenarnya memanggil clone, yang lebih canggih dan mendukung thread. Saat sistem boot, kernel membuat beberapa proses secara otomatis, termasuk init atau systemd (PID 1), yang bertanggung jawab menjalankan skrip startup. Semua proses lain adalah turunan dari proses utama ini.
+
+### Signals
+
+Signals adalah notifikasi yang dikirim ke proses untuk memberi tahu terjadinya suatu peristiwa. Ada sekitar 30 jenis signal, digunakan untuk berbagai tujuan seperti komunikasi antar proses, menghentikan proses, atau memberi tahu kondisi tertentu.
+
+![Signals](https://liujunming.top/images/2018/12/71.png)
+
+Beberapa signal penting termasuk:
+
+- **KILL**: Menghentikan proses secara paksa (tidak bisa diabaikan).
+- **INT**: Dikirim saat <Control-C> ditekan, meminta proses berhenti.
+- **TERM**: Meminta proses berhenti dengan bersih.
+- **HUP**: Biasanya digunakan untuk meminta daemon restart.
+- **QUIT**: Mirip TERM, tetapi menghasilkan core dump jika tidak ditangani.
+
+### `kill`: mengirim signals
+
+Perintah kill digunakan untuk mengirim signal ke proses. Secara default, kill mengirimkan signal TERM. Sintaksnya adalah:
+
+```bash
+kill [-signal] pid
+```
+
+- `[-signal]`(opsional) adalah sinyal yang ingin dikirim ke proses. Sinyal dapat ditulis dalam bentuk angka(misalnya, `-9` untuk KILL) atau nama sinyal(misalnya, `-TERM`). Jika tidak ada sinyal yang ditentukan, secara default `kill` mengirimkan sinyal TERM (terminate), yang meminta proses untuk berhenti dengan bersih.
+- `pid` adalah Proses ID(PID) dari proses yang menjadi target. PID dapat ditemukan menggunakan perintah seperti `ps`, `top`, atau `htop`.
+
+`killall` dan `pkill` adalah alternatif untuk menghentikan proses berdasarkan nama atau pengguna.
+
+```bash
+killall firefox  # Menghentikan semua proses Firefox
+pkill -u abdoufermat  # Menghentikan semua proses milik pengguna abdoufermat
+```
