@@ -4,34 +4,19 @@
 
 <br>
 
+Proses dalam sistem operasi terdiri dari dua komponen utama: address space (ruang memori untuk kode, data, dan stack) dan struktur data kernel (informasi seperti status, prioritas, dan sumber daya). Proses ini mengelola semua sumber daya yang diperlukan untuk menjalankan program, seperti memori, file yang dibuka, dan atribut lainnya. Proses dapat dianggap sebagai wadah yang mengelola semua sumber daya yang diperlukan untuk menjalankan sebuah program.
+
 ## Komponen dalam sebuah proses
 
-Sebuah proses dalam sistem operasi terdiri dari dua bagian utama, yaitu **address space** (ruang memori yang digunakan untuk menyimpan kode, data, dan stack program) dan **struktur data kernel** (yang menyimpan informasi seperti status proses, prioritas, dan sumber daya yang digunakan). Proses ini berfungsi sebagai wadah yang mengelola semua sumber daya yang diperlukan untuk menjalankan sebuah program, seperti memori, file yang dibuka, dan atribut lainnya.
-
-### Thread
-
-Thread adalah unit eksekusi yang berjalan di dalam sebuah proses. Sebuah proses dapat memiliki banyak thread, dan semua thread tersebut berbagi ruang memori dan sumber daya yang sama. Thread memungkinkan program untuk melakukan banyak tugas secara paralel, dan karena lebih ringan dibandingkan proses, pembuatan dan penghapusannya lebih efisien.
-
-### PID (Process ID)
-
-Setiap proses memiliki PID (Process ID) yang unik, yaitu nomor identifikasi yang diberikan oleh kernel saat proses dibuat. PID ini digunakan untuk mengidentifikasi proses dalam berbagai operasi sistem, seperti mengirim sinyal atau memantau proses.
-
-### Namespaces
-
-Namespaces adalah fitur yang memungkinkan beberapa proses memiliki PID yang sama tetapi dalam lingkungan yang terisolasi. Ini digunakan dalam teknologi container, di mana setiap container memiliki lingkungannya sendiri yang terpisah, memungkinkan beberapa aplikasi berjalan secara independen di sistem yang sama.
-
-### PPID (Parent Process ID)
-
-PPID (Parent Process ID) adalah PID dari proses induk yang membuat proses tersebut. Setiap proses (kecuali proses utama sistem) memiliki proses induk, dan PPID membantu sistem melacak hubungan hierarkis antara proses.
-
-### UID (User ID) dan EUID (Effective User ID)
-
-- UID (User ID) adalah ID pengguna yang menjalankan proses.
-- EUID (Effective User ID) adalah ID yang digunakan oleh proses untuk menentukan izin akses ke sumber daya seperti file, port jaringan, atau operasi sistem lainnya. EUID ini memastikan bahwa proses hanya dapat mengakses sumber daya yang diizinkan.
+1. **Thread**: Unit eksekusi dalam proses yang berbagi ruang memori dan sumber daya. Thread memungkinkan program untuk melakukan banyak tugas secara paralel. Karena lebih ringan dibandingkan proses, pembuatan dan penghapusan thread lebih efisien.
+2. **PID (Process ID)**: Nomor unik yang diberikan oleh kernel untuk mengidentifikasi setiap proses. PID digunakan dalam berbagai operasi sistem, seperti mengirim sinyal atau memantau proses.
+3. **Namespaces**: Fitur yang memungkinkan beberapa proses memiliki PID yang sama tetapi dalam lingkungan yang terisolasi. Ini digunakan dalam teknologi container, di mana setiap container memiliki lingkungannya sendiri yang terpisah.
+4. **PPID (Parent Process ID)**: PID dari proses induk yang membuat proses tersebut. Setiap proses (kecuali proses utama sistem) memiliki proses induk, dan PPID membantu sistem melacak hubungan hierarkis antara proses.
+5. **UID (User ID) dan EUID (Effective User ID)**: UID adalah ID pengguna yang menjalankan proses, sedangkan EUID adalah ID yang digunakan oleh proses untuk menentukan izin akses ke sumber daya seperti file, port jaringan, atau operasi sistem lainnya.
 
 ## Lifecycle suatu proses
 
-Untuk membuat proses baru, sebuah proses menggunakan system call fork untuk menyalin dirinya sendiri. fork menghasilkan proses anak yang identik dengan proses induk, tetapi memiliki PID yang berbeda. Pada Linux, fork sebenarnya memanggil clone, yang lebih canggih dan mendukung thread. Saat sistem boot, kernel membuat beberapa proses secara otomatis, termasuk init atau systemd (PID 1), yang bertanggung jawab menjalankan skrip startup. Semua proses lain adalah turunan dari proses utama ini.
+Proses baru dibuat dengan system call fork, yang menyalin proses induk. Proses anak memiliki PID yang berbeda tetapi identik dengan proses induk. Pada Linux, fork sebenarnya memanggil clone, yang lebih canggih dan mendukung thread. Saat sistem boot, kernel membuat beberapa proses secara otomatis, termasuk init atau systemd (PID 1), yang bertanggung jawab menjalankan skrip startup. Semua proses lain adalah turunan dari proses utama ini.
 
 ### Signals
 
@@ -47,18 +32,13 @@ Beberapa signal penting termasuk:
 - **HUP**: Biasanya digunakan untuk meminta daemon restart.
 - **QUIT**: Mirip TERM, tetapi menghasilkan core dump jika tidak ditangani.
 
-### kill: mengirim signals
-
-Perintah kill digunakan untuk mengirim signal ke proses. Secara default, kill mengirimkan signal TERM. Sintaksnya adalah:
+Perintah kill digunakan untuk mengirim signal ke proses. Secara default, kill mengirimkan signal TERM. Contoh:
 
 ```bash
-kill [-signal] pid
+kill -9 PID  # Menghentikan proses secara paksa
 ```
 
-- `[-signal]`(opsional) adalah sinyal yang ingin dikirim ke proses. Sinyal dapat ditulis dalam bentuk angka(misalnya, `-9` untuk KILL) atau nama sinyal(misalnya, `-TERM`). Jika tidak ada sinyal yang ditentukan, secara default `kill` mengirimkan sinyal TERM (terminate), yang meminta proses untuk berhenti dengan bersih.
-- `pid` adalah Proses ID(PID) dari proses yang menjadi target. PID dapat ditemukan menggunakan perintah seperti `ps`, `top`, atau `htop`.
-
-`killall` dan `pkill` adalah alternatif untuk menghentikan proses berdasarkan nama atau pengguna.
+killall dan pkill adalah alternatif untuk menghentikan proses berdasarkan nama atau pengguna. Contoh:
 
 ```bash
 killall firefox  # Menghentikan semua proses Firefox
@@ -67,79 +47,23 @@ pkill -u abdoufermat  # Menghentikan semua proses milik pengguna abdoufermat
 
 ## PS: memantau proses
 
-Perintah ps adalah alat utama administrator sistem untuk memantau proses. Meskipun versi ps berbeda dalam argumen dan tampilannya, semua memberikan informasi yang serupa. ps dapat menampilkan PID, UID, prioritas, terminal kontrol, penggunaan memori, konsumsi CPU, dan status proses (seperti running, stopped, atau sleeping).
-
-Untuk mendapatkan gambaran umum sistem, jalankan ps aux. Opsi a menampilkan proses semua pengguna, u memberikan informasi detail, dan x menampilkan proses yang tidak terhubung ke terminal. Contoh:
-
-```bash
-$ ps aux | head -8
-USER       PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND
-root         1  0.0  0.0  22556  2584 ?        Ss   2019   0:02 /sbin/init
-root         2  0.0  0.0      0     0 ?        S    2019   0:00 [kthreadd]
-root         3  0.0  0.0      0     0 ?        I<   2019   0:00 [rcu_gp]
-root         4  0.0  0.0      0     0 ?        I<   2019   0:00 [rcu_par_gp]
-root         6  0.0  0.0      0     0 ?        I<   2019   0:00 [kworker/0:0H-kblockd]
-root         8  0.0  0.0      0     0 ?        I<   2019   0:00 [mm_percpu_wq]
-root         9  0.0  0.0      0     0 ?        S    2019   0:00 [ksoftirqd/0]
-```
+Perintah ps adalah alat utama administrator sistem untuk memantau proses. ps dapat menampilkan PID, UID, prioritas, terminal kontrol, penggunaan memori, konsumsi CPU, dan status proses (seperti running, stopped, atau sleeping). Untuk mendapatkan gambaran umum sistem, jalankan ps aux.
 
 ![process-explanation](./image/process-explanation.png)
 
-Opsi lain yang berguna adalah lax, yang memberikan informasi teknis lebih rinci tentang proses. lax lebih cepat daripada aux karena tidak perlu mengurai nama pengguna dan grup. Contoh:
+Opsi lain yang berguna adalah lax, yang memberikan informasi teknis lebih rinci tentang proses. lax lebih cepat daripada aux karena tidak perlu mengurai nama pengguna dan grup.
 
-```bash
-$ ps lax | head -8
-F   UID   PID  PPID PRI  NI    VSZ   RSS WCHAN  STAT TTY        TIME COMMAND
-4     0     1     0  20   0  22556  2584 -      Ss   ?          0:02 /sbin/init
-1     0     2     0  20   0      0     0 -      S    ?          0:00 [kthreadd]
-1     0     3     2  20   0      0     0 -      I<   ?          0:00 [rcu_gp]
-1     0     4     2  20   0      0     0 -      I<   ?          0:00 [rcu_par_gp]
-1     0     6     2  20   0      0     0 -      I<   ?          0:00 [kworker/0:0H-kblockd]
-1     0     8     2  20   0      0     0 -      I<   ?          0:00 [mm_percpu_wq]
-1     0     9     2  20   0      0     0 -      S    ?          0:00 [ksoftirqd/0]
-```
-
-Untuk mencari proses tertentu, gunakan grep untuk menyaring output ps. Contoh:
-
-```bash
-$ ps aux | grep -v grep | grep firefox
-```
-
-Untuk menentukan PID suatu proses, gunakan pgrep atau pidof. Contoh:
-
-```bash
-$ pgrep firefox
-$ pidof /usr/bin/firefox
-```
-
-## Pemantauan Interaktif menggunakan top
-
-Perintah top memberikan tampilan real-time yang dinamis dari sistem yang sedang berjalan. top menampilkan informasi ringkasan sistem serta daftar proses atau thread yang sedang dikelola oleh kernel Linux. Informasi yang ditampilkan, seperti jenis, urutan, dan ukuran data, dapat dikonfigurasi oleh pengguna dan disimpan agar tetap berlaku setelah restart. Secara default, tampilan top diperbarui setiap 1-2 detik, tergantung pada sistem.
-
-Ada juga perintah htop, yang merupakan alat pemantau proses interaktif untuk sistem Unix. htop adalah aplikasi berbasis teks (untuk konsol atau terminal X) dan memerlukan ncurses. htop mirip dengan top, tetapi memungkinkan pengguna untuk menggulir secara vertikal dan horizontal, sehingga semua proses yang berjalan di sistem dapat dilihat, termasuk command line lengkapnya. htop juga memiliki antarmuka pengguna yang lebih baik dan lebih banyak opsi untuk operasi.
+top dan htop adalah alat pemantauan interaktif yang menampilkan proses secara real-time. htop menawarkan antarmuka yang lebih baik dan lebih banyak opsi untuk operasi.
 
 ## Nice and Renice: Mengubah Prioritas Proses
 
-Niceness adalah nilai numerik yang memberikan petunjuk kepada kernel tentang bagaimana suatu proses harus diperlakukan relatif terhadap proses lain yang bersaing untuk mendapatkan CPU. Nilai niceness yang tinggi berarti prioritas proses rendah (proses bersikap "baik"), sedangkan nilai rendah atau negatif berarti prioritas tinggi (proses tidak terlalu "baik"). Rentang nilai niceness bervariasi antar sistem, misalnya di Linux rentangnya adalah -20 hingga +19.
+Niceness adalah nilai numerik yang memberikan petunjuk kepada kernel tentang bagaimana suatu proses harus diperlakukan relatif terhadap proses lain yang bersaing untuk mendapatkan CPU. Nilai niceness yang tinggi berarti prioritas proses rendah, sedangkan nilai rendah atau negatif berarti prioritas tinggi. Perintah nice digunakan untuk memulai proses dengan nilai niceness tertentu, sedangkan renice mengubah nilai niceness proses yang sedang berjalan. Contoh:
 
-Proses dengan prioritas rendah akan mendapatkan waktu CPU lebih sedikit dibandingkan proses dengan prioritas tinggi. Misalnya, jika Anda menjalankan tugas yang intensif CPU di latar belakang, Anda dapat memulainya dengan nilai niceness tinggi agar tidak mengganggu proses lain.
-
-Perintah nice digunakan untuk memulai proses dengan nilai niceness tertentu. Sintaksnya:
+Contoh:
 
 ```bash
-nice -n nice_val [command]
-
-# Contoh
-nice -n 10 sh infinite.sh &
-```
-
-Perintah renice digunakan untuk mengubah nilai niceness proses yang sedang berjalan. Sintaksnya:
-
-```bash
-renice -n nice_val -p pid
-
-# Contoh
-renice -n 10 -p 1234
+nice -n 10 sleep 1000  # Memulai proses dengan niceness 10
+renice -n 5 -p PID     # Mengubah niceness proses menjadi 5
 ```
 
 Priority value adalah nilai prioritas sebenarnya yang digunakan kernel Linux untuk menjadwalkan tugas. Di Linux, rentang prioritas adalah 0 hingga 139, di mana 0-99 untuk tugas real-time dan 100-139 untuk pengguna. Hubungan antara nilai nice dan priority adalah:
@@ -150,40 +74,23 @@ Nilai nice default adalah 0. Semakin rendah nilai nice, semakin tinggi prioritas
 
 ## The /proc Filesystem
 
-Direktori /proc adalah sebuah pseudo-filesystem di Linux yang digunakan oleh kernel untuk mengekspos berbagai informasi tentang status sistem, termasuk status proses. Meskipun namanya merujuk pada "process", /proc juga berisi informasi lain seperti statistik sistem.
-
-Setiap proses direpresentasikan oleh direktori di /proc yang dinamai sesuai dengan PID-nya. Setiap direktori proses berisi berbagai file yang menyediakan informasi detail tentang proses tersebut, seperti command line, environment variables, file descriptors, dan lainnya. Tools seperti ps dan top membaca informasi status proses dari direktori /proc ini. Dengan demikian, /proc merupakan sumber informasi penting untuk memantau dan memahami proses serta kondisi sistem secara keseluruhan.
+Direktori /proc adalah pseudo-filesystem yang mengekspos informasi tentang status sistem dan proses. Setiap proses direpresentasikan oleh direktori dengan nama PID-nya. Tools seperti ps dan top membaca informasi status proses dari direktori /proc. /proc juga berisi informasi lain seperti statistik sistem.
 
 ![process-information](./image/process-information.png)
 
 ## Strace and Truss
 
-Untuk memahami aktivitas suatu proses, strace di Linux atau truss di FreeBSD dapat digunakan. Perintah ini melacak system calls dan signals yang dilakukan oleh proses. Alat ini berguna untuk debugging program atau menganalisis perilaku suatu program.
+strace (Linux) dan truss (FreeBSD) digunakan untuk melacak system calls dan signals yang dilakukan oleh proses. Alat ini berguna untuk debugging program atau menganalisis perilaku suatu program. Contoh:
 
-Contoh penggunaan strace pada proses top (dengan PID 5810):
+Contoh:
 
 ```bash
-$ strace -p 5810
-
-gettimeofday({1197646605,  123456}, {300, 0}) = 0
-open("/proc", O_RDONLY|O_NONBLOCK|O_LARGEFILE|O_DIRECTORY) = 7
-fstat64(7, {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
-fcntl64(7, F_SETFD, FD_CLOEXEC)          = 0
-getdents64(7, /* 3 entries */, 32768)   = 72
-getdents64(7, /* 0 entries */, 32768)   = 0
-stat64("/proc/1", {st_mode=S_IFDIR|0555, st_size=0, ...}) = 0
-open("/proc/1/stat", O_RDONLY)           = 8
-read(8, "1 (init) S 0 1 1 0 -1 4202752"..., 1023) = 168
-close(8)                                = 0
-
-[...]
+strace -p PID  # Melacak system calls proses tertentu
 ```
-
-Output yang dihasilkan menampilkan berbagai system calls, seperti membaca waktu saat ini, membuka direktori /proc, dan membaca file /proc/1/stat untuk mendapatkan informasi tentang proses init. Dengan strace atau truss, aktivitas proses dapat dianalisis secara mendetail.
 
 ## Runaway processes
 
-Proses yang tidak merespons sistem dan berjalan di luar kendali disebut runaway processes. Proses ini mengabaikan prioritas penjadwalan dan menggunakan 100% CPU, menyebabkan sistem menjadi lambat. Untuk menghentikan proses tersebut, perintah kill dapat digunakan. Jika proses tidak merespons sinyal TERM, sinyal KILL dapat digunakan untuk memaksa penghentian. Contoh:
+Proses yang tidak merespons sistem dan berjalan di luar kendali disebut runaway processes dan menggunakan 100% CPU disebut runaway processes. Untuk menghentikannya, gunakan perintah kill dengan sinyal KILL:
 
 ```bash
 kill -9 pid
@@ -193,13 +100,7 @@ atau
 kill -KILL pid
 ```
 
-Untuk menyelidiki penyebab runaway process, alat seperti strace atau truss dapat digunakan. Jika proses menghasilkan output yang berlebihan, hal ini dapat memenuhi filesystem. Perintah df -h digunakan untuk memeriksa penggunaan filesystem, dan du digunakan untuk menemukan file atau direktori terbesar.
-
-Selain itu, perintah lsof dapat digunakan untuk melihat file yang dibuka oleh proses tersebut. Contoh:
-
-```bash
-lsof -p pid
-```
+Alat seperti strace atau lsof dapat digunakan untuk menyelidiki penyebabnya. lsof menampilkan file yang dibuka oleh proses tersebut.
 
 ## Periodic Processes
 
@@ -232,15 +133,10 @@ Perintah crontab digunakan untuk mengelola crontab. Opsi -e untuk mengedit, -l u
 
 ### Systemd Timer
 
-Systemd timer adalah alternatif modern untuk cron. Timer diaktifkan oleh unit service yang sesuai dan dapat dijadwalkan berdasarkan waktu, boot sistem, atau event tertentu. Perintah systemctl list-timers digunakan untuk menampilkan timer yang aktif. Contoh:
+Systemd timer adalah alternatif modern untuk cron. Timer diaktifkan oleh unit service dan dapat dijadwalkan berdasarkan waktu atau event tertentu. Contoh:
 
 ```bash
-$ systemctl list-timers
-
-NEXT                         LEFT          LAST                         PASSED       UNIT                         ACTIVATES
-Fri 2021-10-15 00:00:00 UTC  1h 1min left Thu 2021-10-14 00:00:00 UTC  22h ago      logrotate.timer              logrotate.service
-
-1 timers listed.
+systemctl list-timers  # Menampilkan timer yang aktif
 ```
 
 File konfigurasi timer (berakhiran .timer) menentukan jadwal dan akurasi eksekusi.
