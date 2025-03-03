@@ -76,7 +76,7 @@ nice -n nice_val [command]  # Memulai proses dengan menentukan niceness
 renice -n nice_val -p PID     # Mengubah niceness proses
 ```
 
-![nice](./image/nice.png)
+![nice and renice](./image/nice_and_renice.png)
 
 Priority value adalah nilai prioritas sebenarnya yang digunakan kernel Linux untuk menjadwalkan tugas. Di Linux, rentang prioritas adalah 0 hingga 139, di mana 0-99 untuk tugas real-time dan 100-139 untuk pengguna. Hubungan antara nilai nice dan priority adalah:
 
