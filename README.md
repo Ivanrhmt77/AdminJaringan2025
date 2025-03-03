@@ -19,10 +19,9 @@ Dr. Ferry Astika Saputra ST, M.Sc
 
 Berikut adalah daftar tugas yang tersedia dalam repository ini:
 
-1. **Tugas 1: Reviu**
+1. **[Tugas 1: Reviu](./Tugas1-Reviu/Reviu.md)**
 
-   - **Deskripsi:** 1. Analisa file http.cap dengan wireshark : Versi HTTP yang digunakan, IP address dari client maupun server, waktu dari client mengirimkan HTTP request., Waktu dari server mengirinmkan server dan berapa durasinya 2. Deskripsi gambar pada slide 3. rangkuman tahapan komunikasi menggunakan TCP
-   - **Link:** [Tugas 1: Reviu](./Tugas1-Reviu/Reviu.md)
+2. **[Tugas 2: Rangkuman Process Control & Filesystem](./Tugas2-ProcessControl_FileSystem/)**
 
 ---
 
