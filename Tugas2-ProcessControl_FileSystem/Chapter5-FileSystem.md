@@ -22,6 +22,8 @@ mount /dev/sda4 /users
 
 Unmounting bisa dilakukan dengan umount. Opsi umount -l untuk lazy unmount dan umount -f untuk forceful unmount. Untuk mengetahui proses yang menggunakan filesystem, gunakan lsof atau fuser.
 
+![lsof](./image/lsof.png)
+
 ## Organisasi dari file tree
 
 Struktur file tree di sistem UNIX tidak terorganisir dengan baik. Beberapa direktori penting termasuk /boot (kernel), /etc (file konfigurasi), /bin dan /sbin (utilitas sistem), /tmp (file sementara), /dev (file perangkat), /usr (program dan library), dan /var (file yang sering berubah seperti log).
@@ -41,6 +43,10 @@ Filesystem mendefinisikan tujuh jenis file:
 7. **Symbolic links**: Referensi ke file atau direktori lain.
 
 ![File Type Encoding](./image/file-type-encoding.png)
+
+Kita dapat mengetahui jenis suatu file dengan perintah `file`
+
+![File](./image/file.png)
 
 ## Atribut file
 
@@ -74,6 +80,10 @@ Bit setuid dan setgid memungkinkan file dijalankan dengan hak akses owner atau g
 - **umask**: Menentukan permission default untuk file dan direktori baru.
 
 ## Access Control Lists (ACLs)
+
+Perintah `getfacl` akan menampilkan ACL dari sebuah file dan perintah `setfacl` menentukan ACL dari sebuah file.
+
+![getfacl](./image/getfacl.png)
 
 ACLs memperluas model permission tradisional dengan memungkinkan multiple owner dan permission yang lebih fleksibel. Ada dua jenis ACL: POSIX ACLs dan NFSv4 ACLs.
 
