@@ -35,8 +35,12 @@ Beberapa signal penting termasuk:
 Perintah kill digunakan untuk mengirim signal ke proses. Secara default, kill mengirimkan signal TERM. Contoh:
 
 ```bash
-kill -9 PID  # Menghentikan proses secara paksa
+kill [-signal] PID  # Menghentikan proses secara paksa
 ```
+
+![kill](./image/kill.png)
+
+Mengirim signal TERM ke proses dengan PID `4496`.
 
 killall dan pkill adalah alternatif untuk menghentikan proses berdasarkan nama atau pengguna. Contoh:
 
@@ -49,11 +53,17 @@ pkill -u abdoufermat  # Menghentikan semua proses milik pengguna abdoufermat
 
 Perintah ps adalah alat utama administrator sistem untuk memantau proses. ps dapat menampilkan PID, UID, prioritas, terminal kontrol, penggunaan memori, konsumsi CPU, dan status proses (seperti running, stopped, atau sleeping). Untuk mendapatkan gambaran umum sistem, jalankan ps aux.
 
+![ps-aux](./image/ps_aux.png)
 ![process-explanation](./image/process-explanation.png)
 
 Opsi lain yang berguna adalah lax, yang memberikan informasi teknis lebih rinci tentang proses. lax lebih cepat daripada aux karena tidak perlu mengurai nama pengguna dan grup.
 
+![ps-lax](./image/ps_lax.png)
+
 top dan htop adalah alat pemantauan interaktif yang menampilkan proses secara real-time. htop menawarkan antarmuka yang lebih baik dan lebih banyak opsi untuk operasi.
+
+![top](./image/top.png)
+![htop](./image/htop.png)
 
 ## Nice and Renice: Mengubah Prioritas Proses
 
@@ -62,9 +72,11 @@ Niceness adalah nilai numerik yang memberikan petunjuk kepada kernel tentang bag
 Contoh:
 
 ```bash
-nice -n 10 sleep 1000  # Memulai proses dengan niceness 10
-renice -n 5 -p PID     # Mengubah niceness proses menjadi 5
+nice -n nice_val [command]  # Memulai proses dengan menentukan niceness
+renice -n nice_val -p PID     # Mengubah niceness proses
 ```
+
+![nice](./image/nice.png)
 
 Priority value adalah nilai prioritas sebenarnya yang digunakan kernel Linux untuk menjadwalkan tugas. Di Linux, rentang prioritas adalah 0 hingga 139, di mana 0-99 untuk tugas real-time dan 100-139 untuk pengguna. Hubungan antara nilai nice dan priority adalah:
 
@@ -87,6 +99,8 @@ Contoh:
 ```bash
 strace -p PID  # Melacak system calls proses tertentu
 ```
+
+![Strace](./image/strace.png)
 
 ## Runaway processes
 
@@ -139,6 +153,8 @@ Systemd timer adalah alternatif modern untuk cron. Timer diaktifkan oleh unit se
 systemctl list-timers  # Menampilkan timer yang aktif
 ```
 
+![Systemd timer](./image/systemd_timer.png)
+
 File konfigurasi timer (berakhiran .timer) menentukan jadwal dan akurasi eksekusi.
 
 ### Penggunaan umum untuk scheduled tasks
@@ -166,36 +182,3 @@ File konfigurasi timer (berakhiran .timer) menentukan jadwal dan akurasi eksekus
 
 5. **Backup dan Mirroring:**
    Menjadwalkan backup atau sinkronisasi direktori ke sistem remote menggunakan rsync.
-
-## Percobann
-
-### Mengirim sinyal ke proses
-
-![Sleep 1000](./image/sleep.png)
-
-Menjalankan sebuah proses `sleep 1000`.
-
-![Sinyal TERM](./image/term.png)
-
-Memantau proses menggunakan `ps aux` dan mengirim sinyal TERM pada proses dengan PID `32` menggunakan `kill`.
-
-![Sinyal Terminated](./image/Terminated.png)
-
-Proses dengan PID `32` berhasil dihentikan dengan bersih.
-
-### Mengubah Prioritas Proses dengan nice dan renice
-
-![Nice](./image/nice.png)
-
-Menjalankan sebuah proses `sleep 1000` dengan nilai niceness `10`.
-
-![Renice](./image/renice.png)
-
-Memantau proses menggunakan `ps aux`. Proses yang baru saya jalankan adalah proses dengan PID `223` dan nilai niceness `10`. Nilai niceness yang lebih tinggi ini menunjukkan bahwa proses tersebut memiliki prioritas yang lebih rendah dibandingkan proses lainnya (angka yang lebih besar menunjukkan prioritas yang lebih rendah).
-
-Namun, ketika saya mencoba mengubah nilai niceness menggunakan `renice`, saya mendapatkan pesan error `Permission denied`. Mungkin hal ini terjadi karena menggunakan docker. Meskipun login sebagai root, Docker menggunakan namespace isolation dan cgroups yang membatasi akses penuh ke sistem, mungkin termasuk kemampuan untuk mengubah Niceness proses. Oleh karena itu, saya mencoba melakukan renice di terminal sistem operasi yang saya gunakan yaitu Linux mint.
-
-![Nice Linux Mint](./image/nice_mint.png)
-![Renice Linux Mint](./image/renice_mint.png)
-
-Pada proses dengan PID `142426` awalnya memiliki nilai niceness `10` dan memiliki nilai prioritas `30`. Ketika melakukan `renice` dengan mengubah nilai niceness menjadi `5` nilai prioritasnya juga berubah menjadi `25`. Nilai prioritas akan naik sebanyak turunnya nilai niceness.
