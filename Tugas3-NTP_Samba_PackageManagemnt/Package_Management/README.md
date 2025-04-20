@@ -269,7 +269,7 @@ Debian menyimpan cache paket di /var/cache/apt/archives/ untuk memungkinkan inst
   sudo apt autoremove --purge
   ```
 
-  [image](./image/autoremove.png)
+  ![image](./image/autoremove.png)
 
 - Menghapus paket obsolete
   Paket obsolete adalah paket yang sudah tidak tersedia di repository. Untuk menemukannya, gunakan perintah “apt list '?obsolete'”, lalu hapus dengan “apt remove '?obsolete'”.
@@ -282,7 +282,8 @@ Debian menyimpan cache paket di /var/cache/apt/archives/ untuk memungkinkan inst
   ![image](./image/obsolete.png)
 
 - Membersihkan file konfigurasi yang tersisa
-  Terkadang, file konfigurasi tetap tersisa meskipun paket sudah dihapus. Untuk menemukannya, gunakan perintah “dpkg --list | awk '/^rc/ {print $2}'”, lalu hapus dengan “apt purge $(dpkg --list | awk '/^rc/ {print $2}')”.
+  Terkadang, file konfigurasi tetap tersisa meskipun paket sudah dihapus.  
+  Untuk menemukannya, gunakan perintah berikut:
 
   ```bash
   dpkg --list | awk '/^rc/ {print $2}'
