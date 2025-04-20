@@ -350,9 +350,30 @@ rm -rf ~/.thumbnails/\*
 
 ## 7. Installing external “.deb” packages
 
-### 7.1
+Debian menggunakan sistem repository untuk mengelola paket, tetapi terkadang pengguna perlu menginstal paket eksternal dalam format .deb. Berikut cara menginstalnya:
 
-### 7.2
+### 7.1 Installation in graphic mode with GDebi
+
+.deb adalah format paket yang digunakan oleh Debian untuk mendistribusikan software. Ini adalah file terkompresi yang berisi aplikasi beserta metadata dan dependensinya. GDebi adalah alat grafis untuk menginstal paket .deb sambil mengelola dependensi. Instal GDebi dengan perintah:
+
+```bash
+sudo apt install gdebi
+```
+
+Klik kanan file .deb, lalu pilih Open with GDebi untuk menginstalnya.
+
+### 7.2 Installation in terminal mode with Dpkg
+
+- Gunakan perintah dpkg untuk menginstal paket .deb:
+
+  ```bash
+  sudo dpkg -i nama_paket.deb
+  ```
+
+- Jika ada dependensi yang kurang, jalankan:
+  ```bash
+  sudo apt install -f
+  ```
 
 ## 8. Installing Flatpak applications
 
