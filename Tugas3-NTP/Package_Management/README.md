@@ -115,17 +115,33 @@ Perintah ini akan melakukan update daftar paket, upgrade sistem, dan bersihkan p
 
 ## 3. Software: the simplified package manager
 
-### 3.1
+Software adalah aplikasi berbasis GUI yang memudahkan pengguna Debian untuk mengelola paket aplikasi.
 
-### 3.2
+### 3.1 Searching an application
 
-### 3.3
+Software bisa mencari aplikasi dengan mengetik nama atau menjelajahi kategori seperti Explore, Installed, dan Updates.
 
-### 3.4
+### 3.2 Installing an application
 
-### 3.5
+Klik aplikasi yang diinginkan, lalu pilih Install. Sistem akan meminta password administrator untuk konfirmasi.
 
-### 3.6
+### 3.3 Removing an application
+
+Buka kategori Installed, pilih aplikasi, lalu klik Remove.
+
+### 3.4 Upgrading your applications
+
+Jika ada pembaruan, aplikasi akan muncul di kategori Updates. Klik Install Updates untuk memulai proses pembaruan.
+
+### 3.5 Modify packages repositories
+
+Bisa menambahkan atau mengubah repository melalui menu Repositories, termasuk menambahkan sumber non-free jika diperlukan.
+
+### 3.6 Kelebihan Software
+
+- Mudah Digunakan: Cocok untuk pengguna yang tidak terbiasa dengan terminal.
+- Grafis: Antarmuka yang intuitif dan ramah pengguna.
+- Lengkap: Bisa mencari, instal, hapus, dan update aplikasi dalam satu tempat.
 
 ## 4. Discover: the KDE package manager
 
