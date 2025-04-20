@@ -1,5 +1,5 @@
 <h1 align="center">
-  Instalasi NTP Client
+  Instalasi dan Konfigurasi Samba
 </h1>
 
 <br>
