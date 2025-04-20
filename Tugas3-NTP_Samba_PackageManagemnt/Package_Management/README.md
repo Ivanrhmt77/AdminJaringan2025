@@ -377,17 +377,72 @@ Klik kanan file .deb, lalu pilih Open with GDebi untuk menginstalnya.
 
 ## 8. Installing Flatpak applications
 
-### 8.1
+Flatpak adalah sistem pengemasan aplikasi yang memungkinkan pengguna menginstal aplikasi di berbagai distribusi Linux, termasuk Debian. Flatpak memungkinkan aplikasi berjalan di lingkungan terisolasi (sandbox). Berikut poin-poin pentingnya:
 
-### 8.2
+### 8.1 Installing Flatpak
 
-### 8.3
+Flatpak adalah sistem pengemasan aplikasi universal yang kompatibel dengan berbagai distribusi Linux. Untuk menginstalnya, jalankan:
 
-### 8.4
+```bash
+sudo apt install flatpak
+```
 
-### 8.5
+### 8.2 Add a Flatpak repository
 
-### 8.6
+Setelah menginstal Flatpak, langkah penting berikutnya adalah menambahkan repository untuk mengakses aplikasi. Repository paling populer adalah Flathub, yang menyediakan ribuan aplikasi universal. Untuk menambahkannya, jalankan perintah berikut di terminal:
+
+```bash
+flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+Setelah itu, restart sistem untuk memastikan perubahan diterapkan. Dengan repository Flathub, pengguna bisa menginstal berbagai aplikasi universal dengan mudah menggunakan Flatpak.
+
+### 8.3 Manage Flatpak applications under Gnome software
+
+Setelah menginstal Flatpak dan menambahkan repository seperti Flathub, pengguna Gnome bisa mengelola aplikasi Flatpak melalui Software Manager. Untuk mengaktifkan fitur ini, instal plugin Flatpak dengan perintah:
+
+```bash
+sudo apt install gnome-software-plugin-flatpak
+```
+
+Setelah terinstal, buka Software Manager, dan aplikasi Flatpak dari Flathub akan terintegrasi secara otomatis. Pengguna bisa mencari, menginstal, atau menghapus aplikasi Flatpak seperti aplikasi biasa. Integrasi ini memudahkan pengguna Gnome dalam mengelola aplikasi universal tanpa perlu menggunakan terminal.
+
+### 8.4 Manage Flatpak applications under KDE with Discover
+
+Pengguna KDE bisa mengelola aplikasi Flatpak melalui Discover, manajer paket bawaan KDE. Untuk mengaktifkan dukungan Flatpak di Discover, instal backend Flatpak dengan perintah:
+
+```bash
+sudo apt install plasma-discover-backend-flatpak
+```
+
+Setelah terinstal, aplikasi Flatpak dari repository seperti Flathub akan otomatis terintegrasi dengan Discover. Pengguna bisa mencari, menginstal, atau menghapus aplikasi Flatpak langsung dari antarmuka Discover tanpa perlu menggunakan terminal. Integrasi ini memudahkan pengguna KDE dalam mengakses dan mengelola aplikasi universal dengan cara yang intuitif dan ramah pengguna.
+
+### 8.5 Manage Flatpak applications from your terminal
+
+Flatpak juga bisa dikelola sepenuhnya melalui terminal, yang sangat berguna untuk pengguna yang lebih suka antarmuka command-line. Berikut beberapa perintah penting:
+
+![image](./image/flatpak.png)
+
+### 8.6 Some Flatpak repositories
+
+Selain Flathub, ada beberapa repository Flatpak populer yang bisa ditambahkan untuk mengakses lebih banyak aplikasi. Berikut contohnya:
+
+- Flathub (repository utama):
+
+  ```bash
+  flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+  ```
+
+- KDE Apps:
+
+  ```bash
+  flatpak remote-add --if-not-exists kdeapps https://distribute.kde.org/kdeapps.flatpakrepo
+  ```
+
+- Gnome Nightly (untuk aplikasi Gnome versi terbaru):
+  ```bash
+  flatpak remote-add --if-not-exists gnome-nightly https://nightly.gnome.org/gnome-nightly.flatpakrepo
+  ```
 
 ## 9. Who is this Sid guy?
 
