@@ -218,15 +218,134 @@ Preferences di Synaptic memungkinkan pengguna menyesuaikan pengaturan sesuai keb
 
 ## 6. Cleaning the system
 
-### 6.1
+Debian menyediakan beberapa cara untuk membersihkan sistem dan mengosongkan ruang disk. Berikut beberapa langkah yang bisa dilakukan.
 
-### 6.2
+### 6.1 Disk space information
 
-### 6.3
+Untuk membersihkan sistem, langkah pertama adalah memeriksa penggunaan ruang disk. Berikut beberapa cara memeriksa penggunaan ruang disk menggunakan terminal untuk membersihkan sistem:
 
-### 6.4
+![image](./image/df.png)
 
-### 6.5
+“df -h”: Menampilkan penggunaan ruang disk untuk setiap partisi atau mount point.
+
+![image](./image/du.png)
+
+“du -ms \* | sort -nr”: Menampilkan direktori dan ukurannya, diurutkan dari yang terbesar.
+
+“ncdu”: Alat analisis ruang disk berbasis terminal yang interaktif. Bisa diinstal dengan perintah:
+
+```bash
+apt update && apt install ncdu
+```
+
+![image](./image/ncdu.png)
+
+“Baobab”: Alat analisis ruang disk berbasis grafis. Bisa diinstal dengan perintah:
+
+```bash
+apt update && apt install baobab
+```
+
+![image](./image/baobab.png)
+
+### 6.2 Cleaning the package
+
+Debian menyimpan cache paket di /var/cache/apt/archives/ untuk memungkinkan instalasi ulang tanpa koneksi internet. Namun, cache ini bisa memakan ruang disk yang cukup besar. Berikut beberapa cara untuk membersihkan paket yang tidak diperlukan:
+
+- Membersihkan cache paket
+  “apt clean”: Menghapus semua cache paket yang sudah terinstal. “apt autoclean”: Menghapus cache paket yang sudah tidak diperlukan (obsolete).
+
+  ```bash
+  sudo apt clean
+  sudo apt autoclean
+  ```
+
+  ![image](./image/clean.png)
+
+- Menghapus paket tidak terpakai
+  Paket yang tidak terpakai (dependencies yang sudah tidak diperlukan) bisa dihapus dengan perintah “apt autoremove --purge”. Perintah ini juga akan menghapus file konfigurasi yang terkait.
+
+  ```bash
+  sudo apt autoremove --purge
+  ```
+
+  [image](./image/autoremove.png)
+
+- Menghapus paket obsolete
+  Paket obsolete adalah paket yang sudah tidak tersedia di repository. Untuk menemukannya, gunakan perintah “apt list '?obsolete'”, lalu hapus dengan “apt remove '?obsolete'”.
+
+  ```bash
+  sudo apt list '?obsolete'
+  sudo apt remove '?obsolete'
+  ```
+
+  ![image](./image/obsolete.png)
+
+- Membersihkan file konfigurasi yang tersisa
+  Terkadang, file konfigurasi tetap tersisa meskipun paket sudah dihapus. Untuk menemukannya, gunakan perintah “dpkg --list | awk '/^rc/ {print $2}'”, lalu hapus dengan “apt purge $(dpkg --list | awk '/^rc/ {print $2}')”.
+
+  ```bash
+  dpkg --list | awk '/^rc/ {print $2}'
+  sudo apt purge $(dpkg --list | awk '/^rc/ {print $2}')
+  ```
+
+  ![image](./image/membersihkan_file_konfigurasi.png)
+
+- Menghapus paket orphaned
+  Paket orphaned adalah paket yang tidak memiliki dependensi. Untuk menemukannya, instal “deborphan”, lalu hapus paket yang tidak diperlukan.
+  ```bash
+  sudo apt install deborphan
+  deborphan
+  sudo apt autoremove --purge $(deborphan)
+  ```
+  ![image](./image/deborphan.png)
+
+### 6.3 Emptying the trash bins
+
+Debian memiliki beberapa tempat sampah (trash bins) yang perlu dibersihkan secara berkala untuk mengosongkan ruang disk. Berikut cara membersihkannya:
+
+- Tempat Sampah Pengguna:
+  Lokasi: “~/.local/share/Trash/”. Bisa dikosongkan melalui file manager sistem atau dengan perintah terminal:
+  ```bash
+  rm -rf ~/.local/share/Trash/\*
+  ```
+- Tempat Sampah Administrator:
+  Lokasi: “/root/.local/share/Trash/”. Harus dikosongkan dengan hak akses administrator:
+
+  ```bash
+  sudo rm -rf /root/.local/share/Trash/\*
+  ```
+
+- Tempat Sampah Eksternal:
+  Lokasi: Biasanya di “/media/your_id/your_disk/.Trash_1000/”. Dikosongkan dengan perintah:
+  ```bash
+  sudo rm -rf /root/.local/share/Trash/\*
+  ```
+
+### 6.4 Purging application caches
+
+Beberapa aplikasi menyimpan data cache di folder ~/.cache/ untuk meningkatkan kinerja. Namun, cache ini bisa memakan ruang disk jika tidak dibersihkan secara berkala. Berikut cara membersihkannya:
+
+- Membersihkan Cache Secara Manual:
+  Hapus seluruh isi folder cache dengan perintah:
+
+  ```bash
+  rm -rf ~/.cache/\*
+  ```
+
+- Membersihkan Cache Aplikasi Tertentu:
+  Beberapa aplikasi seperti Firefox memiliki opsi untuk membersihkan cache melalui menu pengaturan. Di Firefox, pengguna bisa mengatur agar cache dibersihkan secara otomatis setiap kali aplikasi ditutup.
+
+- Cache di Folder “/tmp/”:
+  Beberapa aplikasi menyimpan cache di folder “/tmp/”, yang akan otomatis dibersihkan saat sistem dimatikan atau di-reboot.
+
+### 6.5 Purging the thumbnails
+
+Thumbnail (gambar kecil) dibuat otomatis saat pengguna membuka folder yang berisi gambar atau video. Thumbnail ini disimpan di folder ~/.thumbnails/ untuk mempercepat tampilan di kemudian hari. Namun, thumbnail yang sudah tidak digunakan (karena file aslinya dihapus) bisa memakan ruang disk. Berikut cara membersihkannya:
+
+```bash
+rm -rf ~/.thumbnails/\*
+```
 
 ## 7. Installing external “.deb” packages
 
