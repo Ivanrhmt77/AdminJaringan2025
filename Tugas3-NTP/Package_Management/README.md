@@ -91,9 +91,27 @@ Dengan ini, bisa instal codec atau driver proprietary. Modifikasi juga bisa dila
 
 ## 2. APT in a terminal
 
-### 2.1
+APT (Advanced Package Tool) adalah alat utama untuk mengelola paket di Debian. Berikut beberapa perintah penting.
 
-### 2.2
+### 2.1 ‘User’ command to search and display information
+
+perintah ini dapat dijalankan sebagai pengguna sederhana, karena tidak mempengaruhi sistem.
+
+![image](./image/apt_user.png)
+
+### 2.2 ‘Administrator’ mode commands for system maintenance
+
+Perintah-perintah ini harus dijalankan dengan hak administrator "root" karena perintah-perintah ini berdampak pada sistem.
+
+![image](./image/apt_administrator.png)
+
+Contoh perintah All-in-One:
+
+```bash
+apt update && apt full-upgrade && apt autoclean
+```
+
+Perintah ini akan melakukan update daftar paket, upgrade sistem, dan bersihkan paket yang tidak diperlukan.
 
 ## 3. Software: the simplified package manager
 
