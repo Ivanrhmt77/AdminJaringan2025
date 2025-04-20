@@ -145,15 +145,33 @@ Bisa menambahkan atau mengubah repository melalui menu Repositories, termasuk me
 
 ## 4. Discover: the KDE package manager
 
-### 4.1
+Discover adalah manajer paket berbasis GUI yang dirancang untuk lingkungan desktop KDE Plasma. Ini memungkinkan pengguna untuk mencari, menginstal, menghapus, dan memperbarui aplikasi dengan mudah. Discover memiliki antarmuka yang bersih dan mudah dinavigasi, dengan kategori seperti Games, Graphics, Internet, dan lainnya.
 
-### 4.2
+### 4.1 Search and install with Discover
 
-### 4.3
+Pengguna bisa mencari aplikasi dengan mengetik nama di kolom pencarian atau menjelajahi kategori yang tersedia.
 
-### 4.4
+Setelah menemukan aplikasi, klik Install untuk mengunduh dan menginstalnya. Sistem akan meminta konfirmasi administrator.
 
-### 4.5
+Discover juga mendukung instalasi add-ons dan Plasma widgets untuk memperkaya fungsionalitas desktop KDE.
+
+### 4.2 Uninstalling an application with Discover
+
+Discover memungkinkan penghapusan aplikasi yang sudah terinstal dengan mudah melalui antarmuka grafis. Pengguna bisa menghapus aplikasi beserta dependensi yang tidak terpakai.
+
+### 4.3 Updating your applications
+
+Discover menampilkan pembaruan yang tersedia untuk sistem dan aplikasi. Pengguna bisa mengklik Update untuk memulai proses pembaruan.
+
+### 4.4 Managing repositories
+
+Discover memungkinkan pengguna untuk menambahkan atau mengubah sumber repository melalui menu Settings. Ini termasuk menambahkan repository non-free jika diperlukan.
+
+### 4.5 Kelebihan Discover
+
+- Ramah Pengguna: Antarmuka yang sederhana dan mudah digunakan.
+- Lengkap: Mendukung instalasi, pembaruan, dan penghapusan aplikasi.
+- Integrasi KDE: Dirancang khusus untuk lingkungan desktop KDE, sehingga terintegrasi dengan baik.
 
 ## 5. Synaptic: the comprehensive package manager
 
