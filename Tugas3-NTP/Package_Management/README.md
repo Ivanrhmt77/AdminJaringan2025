@@ -17,7 +17,7 @@ apt edit-sources
 nano /etc/apt/sources.list
 ```
 
-![image]
+![image](./image/sources_list.png)
 
 Dalam file sources.list, terdapat beberapa komponen penting:
 
@@ -29,11 +29,65 @@ Dalam file sources.list, terdapat beberapa komponen penting:
 
 Pertanyaan umum adalah mengapa menggunakan "bookworm" dan bukan "stable". bookworm adalah nama spesifik dari versi sistem yang terinstal, yang menentukan versi tertentu dari setiap paket dalam repository. Sementara itu, stable adalah nama generik untuk versi stabil saat ini. Saat ini, Debian 12 "bookworm" adalah versi stable, tetapi ketika Debian 13 "Trixie" dirilis, "bookworm" akan berubah status menjadi oldstable. Dengan menggunakan nama spesifik versi seperti "bookworm", pengguna dapat mengontrol kapan ingin melakukan pembaruan ke versi berikutnya, berbeda dengan sistem yang memaksakan pembaruan otomatis.
 
-### 1.2
+### 1.2 About repositories, branches and sections/components
 
-### 1.3
+Debian mengorganisir paket-paket software di dalam repository. Repository ini dibagi menjadi beberapa branch (cabang) dan section/component (bagian/komponen). Berikut penjelasannya:
 
-### 1.4
+Branch:
+
+- **Stable**: Versi resmi Debian yang stabil dan direkomendasikan untuk penggunaan sehari-hari.
+- **Testing**: Versi yang sedang dipersiapkan untuk menjadi versi stabil berikutnya.
+- **Unstable (Sid)**: Versi yang selalu mendapatkan pembaruan terbaru, tetapi kurang stabil.
+- **Experimental**: Repository untuk menguji versi alpha atau beta dari software.
+
+Section/Component:
+
+- **Main**: Berisi software yang sepenuhnya mematuhi DFSG (Debian Free Software Guidelines) dan tidak memiliki dependensi "non-free".
+- **Non-free-firmware**: Berisi firmware yang bersifat "non-free" dan sudah termasuk secara default sejak Debian 12.
+- **Contrib**: Berisi software yang mematuhi DFSG tetapi memiliki dependensi "non-free".
+- **Non-free**: Berisi software yang tidak mematuhi DFSG.
+
+DFSG (Debian Free Software Guidelines) adalah prinsip filosofis Debian tentang software bebas (libre software). Hanya paket-paket dalam bagian main yang sepenuhnya didukung oleh proyek Debian dan merupakan software bebas 100%. Sementara itu, paket-paket di contrib, non-free, dan non-free-firmware bersifat sebagian atau sepenuhnya tidak bebas.
+
+### 1.3 Backport packages
+
+Debian menyediakan repository khusus yang disebut backports. Repository ini berisi versi yang lebih baru dari beberapa aplikasi. Repository backports tidak diaktifkan secara default, tetapi tidak menimbulkan risiko khusus untuk sistem Anda karena repository reguler memiliki prioritas tertinggi selama proses pembaruan. Hanya aplikasi yang diinstal dari backports yang akan menggunakan repository ini.
+
+Backports tidak ada kaitannya dengan "backdoor" yang dipakai untuk memata-matai sistem proprietary. Backport adalah mekanisme yang memungkinkan aplikasi dari repository pengembangan Debian untuk dibawa kembali ke versi "stable". Misalnya, pengembang Debian mengambil versi terbaru LibreOffice dari repository pengembangan, lalu mengkompilasi ulang paketnya dengan menyesuaikan dependensi yang ada di versi "stable".
+
+Kalau mencari aplikasi tertentu, ada dua cara:
+
+- Pakai alat pencarian paket.
+- Cari berdasarkan kategori.
+
+### 1.4 Modifying the Repositories
+
+Sebelum memodifikasi sumber software di sistem, perlu disadari risiko yang mungkin terjadi saat menggunakan komponen "contrib" atau "non-free" dari repository:
+
+- Paket non-free kurang bebas.
+- Tidak didukung resmi oleh Debian karena kode sumbernya tidak tersedia.
+- Bisa "mengotori" sistem Debian yang sepenuhnya bebas.
+
+Untuk modifikasi repository, edit file "sources.list" dengan perintah:
+
+```bash
+apt edit-sources
+```
+
+File akan terbuka di editor teks default (seperti nano atau vim). Setelah edit, simpan perubahan.
+
+Contoh baris repository:
+
+- Hanya paket bebas
+  ```bash
+  deb http://deb.debian.org/debian/ bookworm main
+  ```
+- Paket bebas + proprietary
+  ```bash
+  deb http://deb.debian.org/debian/ bookworm main contrib non-free non-free-firmware
+  ```
+
+Dengan ini, bisa instal codec atau driver proprietary. Modifikasi juga bisa dilakukan lewat Synaptic Package Manager secara grafis.
 
 ## 2. APT in a terminal
 
