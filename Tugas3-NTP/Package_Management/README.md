@@ -175,21 +175,46 @@ Discover memungkinkan pengguna untuk menambahkan atau mengubah sumber repository
 
 ## 5. Synaptic: the comprehensive package manager
 
-### 5.1
+Synaptic adalah manajer paket berbasis GUI yang lebih detail dan komprehensif dibandingkan dengan Software atau Discover. Ini cocok untuk pengguna yang ingin kontrol penuh atas paket di sistem mereka.
 
-### 5.2
+### 5.1 Main interface
 
-### 5.3
+Antarmuka Synaptic terbagi menjadi empat area utama: toolbar di bagian atas yang berisi tombol-tombol fungsi, panel kiri untuk menyortir dan memilih paket, panel tengah yang menampilkan daftar paket, dan panel bawah yang menampilkan deskripsi paket yang dipilih. Setiap paket memiliki kotak kecil di depannya yang menunjukkan status: putih untuk paket belum terinstal, hijau untuk paket terinstal, dan merah untuk paket bermasalah. Logo Debian menandakan paket tersebut adalah "free software". Pengguna disarankan menjelajahi berbagai menu Synaptic untuk memahami fungsionalitasnya tanpa takut merusak sistem, karena tidak ada perubahan yang terjadi sampai tombol Apply diklik dan selalu ada konfirmasi sebelum perubahan diterapkan. Langkah pertama saat membuka Synaptic adalah klik tombol "Reload" untuk memperbarui informasi repository, paket, dan aplikasi yang tersedia.
 
-### 5.4
+### 5.2 Managing the repositories with Synaptic
 
-### 5.5
+Synaptic memungkinkan pengguna untuk mengelola repository secara grafis melalui antarmuka yang mudah digunakan. Untuk mengaksesnya, buka Synaptic dan pilih Settings > Repositories. Di sini, pengguna dapat melihat daftar repository yang aktif, yang sesuai dengan isi file /etc/apt/sources.list. Repository yang ada bisa diedit dengan mengkliknya, atau pengguna dapat menambahkan repository baru dengan mengklik tombol New. Setelah menambahkan atau mengubah repository, Synaptic akan meminta untuk memuat ulang daftar paket agar perubahan dapat diterapkan. Fitur ini memudahkan pengguna dalam menyesuaikan sumber paket sesuai kebutuhan, termasuk menambahkan repository non-free atau contrib jika diperlukan.
 
-### 5.6
+### 5.3 Updating the system with Synaptic
 
-### 5.7
+Sebelum memperbarui sistem, langkah pertama adalah memuat ulang daftar paket dengan mengklik tombol Reload atau melalui menu Edit > Reload Packages Information. Ini memastikan informasi paket terbaru dari repository sudah diperbarui. Setelah itu, pengguna bisa menandai semua paket yang dapat di-upgrade dengan mengklik Mark All Upgrades atau melalui menu Edit > Mark All Upgrades. Jika tidak ada paket yang perlu di-upgrade, artinya sistem sudah mutakhir. Namun, jika ada paket yang bisa di-upgrade, Synaptic akan menampilkannya di bagian Status > Installed (upgradable). Pengguna juga bisa melihat dependensi tambahan yang diperlukan sebelum mengkonfirmasi pembaruan. Setelah memeriksa daftar paket yang akan di-upgrade, klik Apply untuk memulai proses pembaruan. Synaptic akan mengunduh dan menginstal paket-paket tersebut, dan pengguna akan mendapat notifikasi setelah proses selesai. Dengan Synaptic, memperbarui sistem menjadi lebih terkontrol dan terstruktur.
 
-### 5.8
+### 5.4 Searching for a software
+
+Synaptic menyediakan fitur pencarian yang powerful untuk menemukan paket yang dibutuhkan. Pengguna bisa mencari paket dengan mengetik nama atau kata kunci di kolom pencarian, lalu memilih opsi pencarian berdasarkan nama atau deskripsi. Jika nama paket tidak diketahui, pengguna bisa menjelajahi paket berdasarkan kategori di panel kiri, seperti Games, Multimedia, atau Development. Misalnya, untuk mencari paket game, pengguna bisa memilih kategori Games and Amusement di bagian Sections. Synaptic akan menampilkan daftar paket yang sesuai dengan kategori tersebut di panel tengah. Fitur pencarian ini memudahkan pengguna untuk menemukan paket yang dibutuhkan, baik untuk instalasi, pembaruan, atau sekadar melihat informasi detail tentang paket tersebut. Dengan antarmuka yang terorganisir, Synaptic membuat pencarian paket menjadi lebih efisien dan terarah.
+
+### 5.5 Installing a package with Synaptic
+
+Untuk menginstal paket di Synaptic, pengguna cukup mencari paket yang diinginkan melalui fitur pencarian atau menjelajahi kategori yang tersedia. Setelah menemukan paket, klik kanan pada paket tersebut dan pilih Mark for Installation. Jika paket memerlukan dependensi tambahan, Synaptic akan otomatis menambahkannya ke daftar instalasi. Setelah semua paket yang ingin diinstal ditandai, klik Apply untuk memulai proses instalasi. Synaptic akan mengunduh dan menginstal paket beserta dependensinya, dan pengguna akan mendapat notifikasi setelah proses selesai. Fitur ini memudahkan pengguna untuk menginstal paket dengan aman dan terstruktur, termasuk memastikan semua dependensi terpenuhi.
+
+### 5.6 Uninstall a package with Synaptic
+
+Untuk menghapus paket di Synaptic, pengguna bisa mencari paket yang ingin dihapus melalui fitur pencarian atau menjelajahi kategori Installed. Setelah menemukan paket, klik kanan dan pilih Mark for Removal untuk menghapus paket namun menyimpan file konfigurasinya, atau Mark for Complete Removal untuk menghapus paket beserta file konfigurasinya (setara dengan perintah purge di terminal). Setelah paket ditandai untuk dihapus, klik Apply untuk memulai proses penghapusan. Synaptic juga menyediakan fitur untuk membersihkan paket tidak terpakai (dependencies yang sudah tidak diperlukan) melalui kategori Installed (auto removable). Dengan Synaptic, menghapus paket menjadi lebih terkontrol dan aman, termasuk memastikan tidak ada sisa file yang tidak diperlukan.
+
+### 5.7 Look at detailed information on a package
+
+Synaptic menyediakan fitur untuk melihat informasi detail tentang paket yang dipilih. Pengguna bisa mengklik paket yang diinginkan, dan deskripsi singkat akan muncul di panel bawah. Untuk informasi lebih lengkap, klik kanan pada paket dan pilih Properties. Di sini, pengguna bisa melihat berbagai detail seperti dependensi, file yang diinstal, ukuran paket, dan versi. Fitur ini sangat berguna untuk memahami struktur paket, memeriksa dependensi, atau sekadar melihat informasi teknis sebelum menginstal atau menghapus paket. Dengan informasi yang lengkap, pengguna bisa membuat keputusan yang lebih tepat dalam mengelola paket di sistem mereka.
+
+### 5.8 Synaptic preferences
+
+Preferences di Synaptic memungkinkan pengguna menyesuaikan pengaturan sesuai kebutuhan. Terdapat beberapa tab:
+
+- General: Mengatur konfirmasi sebelum perubahan diterapkan.
+- Columns and Fonts: Menyesuaikan tampilan kolom dan font di antarmuka.
+- Colors: Mengatur warna berdasarkan status paket.
+- Files: Mengelola cache paket, seperti menghapus file setelah instalasi.
+- Network: Mengatur koneksi internet untuk mengunduh paket.
+- Distribution: Mengontrol perilaku pembaruan paket.
 
 ## 6. Cleaning the system
 
