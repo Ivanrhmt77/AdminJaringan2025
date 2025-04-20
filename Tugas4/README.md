@@ -4,7 +4,7 @@
 
 <br>
 
-# 1. Configure for Internal Network
+## 1. Configure for Internal Network
 
 Install BIND to Configure DNS (Domain Name System) Server to provide Name or Address Resolution service for Clients.
 
@@ -28,7 +28,7 @@ Local network is [192.168.214.0/24], Domain name is [ivan.world].
 
 ### [3] Next, Configure Zone Files for each Zone set in [named.conf] above.
 
-# 2. Configure Zone Files
+## 2. Configure Zone Files
 
 ### [1] Create zone files that servers resolve IP address from Domain name.
 
@@ -40,7 +40,7 @@ Local network is [192.168.214.0/24], Domain name is [ivan.world].
 
 ### [3] Next, Start BIND and Verify Name or Address Resolution.
 
-# 3. Verify Resolution
+## 3. Verify Resolution
 
 ### [1] Restart BIND to apply changes.
 
