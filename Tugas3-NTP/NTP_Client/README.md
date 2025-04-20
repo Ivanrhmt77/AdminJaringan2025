@@ -10,6 +10,7 @@
 2. Setelah instalasi selesai, edit file konfigurasi NTP di “/etc/ntpsec/ntp.conf”. Cari bagian yang berisi daftar server NTP default.
    ![image](./image/ntp_conf.png)
    Lalu ubah server NTP default menjadi server NTP Indonesia.
+
    ![image](./image/ntp_server_indonesia.png)
    Simpan perubahan dengan CTRL + X, lalu tekan Y dan Enter.
 
