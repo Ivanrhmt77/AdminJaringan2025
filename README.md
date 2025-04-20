@@ -19,9 +19,13 @@ Dr. Ferry Astika Saputra ST, M.Sc
 
 Berikut adalah daftar tugas yang tersedia dalam repository ini:
 
-1. **[Tugas 1: Reviu](./Tugas1-Reviu/Reviu.md)**
+1. **[Tugas 1: Reviu](./Tugas1-Reviu/)**
 
 2. **[Tugas 2: Rangkuman Process Control & Filesystem](./Tugas2-ProcessControl_FileSystem/)**
+
+3. **[Tugas 3: NTP Client, Konfigurasi Samba, & Package Management](./Tugas3-NTP_Samba_PackageManagemnt/)**
+
+4. **[Tugas 4: DNS Server](./Tugas4-DNS/)**
 
 ---
 
