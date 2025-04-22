@@ -18,23 +18,27 @@ Pada topologi ini, VM1 berperan sebagai gateway yang menghubungkan VM2 ke intern
 
 Adapter 1 menggunakan NAT agar VM1 bisa mengakses internet melalui IP host. Pada mode NAT ini, dilakukan port forwarding dengan pengaturan berikut:
 
-- Protocol: TCP
-- Host IP: 127.0.0.1
-- Host Port: 2222
-- Guest IP: 10.0.2.15
-- Guest Port: 22
+![image](./image/port_forwarding.png)
 
-Pengaturan ini digunakan agar kita bisa mengakses VM1 via SSH dari host menggunakan perintah:
+Pengaturan ini digunakan agar bisa mengakses VM1 via SSH dari host. Jadi, meskipun NAT menyembunyikan IP VM dari luar, tetap bisa mengakses terminal VM1 lewat port yang sudah diteruskan (port forwarding).
+
+![image](./image/intnet_VM1.png)
+
+Adapter 2 disetting ke Internal Network agar bisa berkomunikasi langsung dengan VM2 tanpa akses ke luar. Adapter ini membentuk jaringan lokal antar VM di dalam VirtualBox.
+
+### [Opsional] Akses SSH ke VM melalui NAT dengan Port Forwarding
+
+Untuk akses VM dari host via SSH, gunakan perintah berikut:
 
 ```bash
 ssh -p 2222 user@127.0.0.1
 ```
 
-Jadi, meskipun NAT menyembunyikan IP VM dari luar, kita tetap bisa mengakses terminal VM1 lewat port yang sudah diteruskan (port forwarding).
+- `-p 2222`: Menentukan port 2222 pada host yang telah diforward ke port 22 (SSH) di VM.
+- `user`: Ganti dengan username di dalam VM (Student jika menggunakan VM debian-nogui).
+- `127.0.0.1`: Merupakan alamat localhost dari host karena koneksi dilakukan melalui port forwarding.
 
-![image](./image/intnet_VM1.png)
-
-Adapter 2 disetting ke Internal Network agar bisa berkomunikasi langsung dengan VM2 tanpa akses ke luar. Adapter ini membentuk jaringan lokal antar VM di dalam VirtualBox.
+![image](./image/SSH_VM1.png)
 
 ## 3. Konfigurasi VM 2
 
