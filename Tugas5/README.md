@@ -10,9 +10,9 @@
 
 Pada topologi ini, VM1 berperan sebagai gateway yang menghubungkan VM2 ke internet dengan menggunakan IP forwarding. Selain itu, VM1 juga dikonfigurasi sebagai DNS server untuk domain `www.kelompok08.home`. Sementara itu, VM2 berfungsi sebagai klien jaringan yang menggunakan layanan dari VM1.
 
-## Konfigurasi VM 1
+## Konfigurasi VM1
 
-### [1] Setting network VM 1 dengan 2 adapter
+### [1] Konfigurasi network VM1 dengan 2 adapter
 
 ![image](./image/NAT_VM1.png)
 
@@ -40,7 +40,17 @@ ssh -p 2222 user@127.0.0.1
 
 ![image](./image/SSH_VM1.png)
 
-### [2] Konfigurasi Router/Gateway dengan IP Forwarding
+### [2] Konfigurasi Manual IP pada VM1 (Adapter 2)
+
+Untuk mengatur IP statis pada Adapter 2 (Internal Network) di VM1, buka file konfigurasi jaringan dengan perintah berikut:
+
+```bash
+sudo nano /etc/network/interfaces
+```
+
+![image](./image/ip_config.png)
+
+### [3] Konfigurasi Router/Gateway dengan IP Forwarding
 
 #### Mengaktifkan IP Forwarding
 
@@ -92,9 +102,11 @@ iptables-restore < /etc/iptables/rules.v4
 
 Reboot sistem untuk memastikan semua pengaturan diterapkan. Setelah reboot, periksa konektivitas jaringan untuk memastikan bahwa sistem sudah berfungsi sebagai router/gateway dengan benar.
 
-## Konfigurasi VM 2
+### [4] Konfigurasi DNS
 
-### [1] Setting network VM 2
+## Konfigurasi VM2
+
+### [1] Konfigurasi network VM2
 
 ![image](./image/intnet_VM2.png)
 
