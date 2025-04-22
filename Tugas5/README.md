@@ -40,7 +40,7 @@ ssh -p 2222 user@127.0.0.1
 
 ![image](./image/SSH_VM1.png)
 
-### [2] Konfigurasi Manual IP pada VM1 (Adapter 2)
+### [2] Konfigurasi IP pada VM1 (Adapter 2)
 
 Untuk mengatur IP statis pada Adapter 2 (Internal Network) di VM1, buka file konfigurasi jaringan dengan perintah berikut:
 
@@ -103,6 +103,48 @@ iptables-restore < /etc/iptables/rules.v4
 Reboot sistem untuk memastikan semua pengaturan diterapkan. Setelah reboot, periksa konektivitas jaringan untuk memastikan bahwa sistem sudah berfungsi sebagai router/gateway dengan benar.
 
 ### [4] Konfigurasi DNS
+
+Instalasi bind9 menggunakan perintah berikut:
+
+```bash
+apt -y install bind9 bind9utils
+```
+
+Konfigurasi `named.conf`:
+
+```bash
+nano /etc/bind/named.conf
+```
+
+![image](./image/named_conf.png)
+
+File ini akan digunakan untuk mendefinisikan zona-zona DNS buatan sendiri.
+
+Konfigurasi `named.conf.options`:
+
+```bash
+nano /etc/bind/named.conf.options
+```
+
+![image](./image/named_conf_options.png)
+
+Tujuan konfigurasi ini adalah agar DNS server hanya melayani query lokal dan tidak bertindak sebagai resolver internet.
+
+Menambahkan Zona di `named.conf.kelompok08`:
+
+![image](./image/name_conf_kelompok08.png)
+
+Zona `kelompok08.home` digunakan untuk menerjemahkan nama domain ke IP (forward lookup), sedangkan zona `200.168.192.in-addr.arpa` digunakan untuk menerjemahkan IP ke nama domain (reverse lookup). Keduanya bertipe master dan tidak mengizinkan update dinamis.
+
+Konfigurasi agar hanya menggunakan IPv4:
+
+```bash
+nano /etc/default/named
+```
+
+![image](./image/named.png)
+
+Perintah ini memaksa BIND hanya mendengarkan di protokol IPv4, bukan IPv6.
 
 ## Konfigurasi VM2
 
