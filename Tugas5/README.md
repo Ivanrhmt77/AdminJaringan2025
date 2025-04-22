@@ -4,15 +4,15 @@
 
 <br/>
 
-## 1. Topology
+## Topology
 
 ![image](./image/Topology.png)
 
 Pada topologi ini, VM1 berperan sebagai gateway yang menghubungkan VM2 ke internet dengan menggunakan IP forwarding. Selain itu, VM1 juga dikonfigurasi sebagai DNS server untuk domain `www.kelompok08.home`. Sementara itu, VM2 berfungsi sebagai klien jaringan yang menggunakan layanan dari VM1.
 
-## 2. Konfigurasi VM 1
+## Konfigurasi VM 1
 
-### Setting network VM 1 dengan 2 adapter
+### [1] Setting network VM 1 dengan 2 adapter
 
 ![image](./image/NAT_VM1.png)
 
@@ -40,9 +40,61 @@ ssh -p 2222 user@127.0.0.1
 
 ![image](./image/SSH_VM1.png)
 
-## 3. Konfigurasi VM 2
+### [2] Konfigurasi Router/Gateway dengan IP Forwarding
 
-### Setting network VM 2
+#### Mengaktifkan IP Forwarding
+
+Langkah pertama adalah mengaktifkan IP forwarding agar perangkat dapat mengalihkan lalu lintas jaringan antara dua antarmuka jaringan.
+
+Buka file konfigurasi `sysctl.conf`:
+
+```bash
+nano -w /etc/sysctl.conf
+```
+
+Cari baris yang berisi `net.ipv4.ip_forward=1`. Jika baris tersebut ada tetapi diberi tanda komentar (#), hilangkan tanda komentar (#) di depan baris tersebut agar menjadi seperti ini:
+
+```bash
+net.ipv4.ip_forward=1
+```
+
+![image](./image/ip_forward.png)
+
+#### Menginstal dan Mengonfigurasi Iptables
+
+Setelah IP forwarding aktif, langkah selanjutnya adalah mengatur NAT dan firewall menggunakan iptables.
+
+Install `iptables-persistent` untuk menyimpan aturan iptables agar tetap berlaku setelah reboot:
+
+```bash
+apt-get -y install iptables-persistent
+```
+
+Kemudian, edit file konfigurasi iptables:
+
+```bash
+nano -w /etc/iptables/rules.v4
+```
+
+Tambahkan konfigurasi berikut sebagai contoh pengaturan NAT dan firewall:
+
+![image](./image/iptables.png)
+
+#### Mengaktifkan Aturan Iptables
+
+Agar aturan iptables langsung aktif, jalankan perintah:
+
+```bash
+iptables-restore < /etc/iptables/rules.v4
+```
+
+#### Reboot dan Verifikasi
+
+Reboot sistem untuk memastikan semua pengaturan diterapkan. Setelah reboot, periksa konektivitas jaringan untuk memastikan bahwa sistem sudah berfungsi sebagai router/gateway dengan benar.
+
+## Konfigurasi VM 2
+
+### [1] Setting network VM 2
 
 ![image](./image/intnet_VM2.png)
 
