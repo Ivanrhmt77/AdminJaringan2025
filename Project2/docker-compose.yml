@@ -1,0 +1,42 @@
+version: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      - DB_HOST=mysql
+      - DB_USER=root
+      - DB_PASSWORD=axonpassword
+      - DB_NAME=classicmodels
+    depends_on:
+      - mysql
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=axonpassword
+      - MYSQL_DATABASE=classicmodels
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./database/axon/Axon sales - Mysql Database.sql:/docker-entrypoint-initdb.d/01-init.sql
+      - ./database/axon/Axon SQL.sql:/docker-entrypoint-initdb.d/02-queries.sql
+
+volumes:
+  mysql_data:
