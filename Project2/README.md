@@ -1,155 +1,116 @@
-# Dokumentasi Sistem Manajemen Axon
+# Customer Management System
 
-## 1. Arsitektur Bisnis
+Sistem manajemen data pelanggan yang dibangun menggunakan teknologi modern dan dideploy menggunakan Docker.
 
-### Tujuan Bisnis
+## Deskripsi Proyek
 
-- Mengelola dan memantau infrastruktur Axon secara efisien
-- Memudahkan tracking dan maintenance Axon
-- Meningkatkan efektivitas pengelolaan sumber daya
-- Menyediakan informasi real-time tentang status Axon
+Customer Management System adalah aplikasi web yang memungkinkan pengguna untuk mengelola data pelanggan dengan fitur CRUD (Create, Read, Update, Delete). Aplikasi ini dibangun dengan arsitektur microservices dan menggunakan Docker untuk deployment.
 
-### Proses Bisnis
+## Teknologi yang Digunakan
 
-1. Manajemen Axon
+### Frontend
 
-   - Pencatatan lokasi dan kapasitas Axon
-   - Pemantauan status Axon
-   - Penjadwalan maintenance
-   - Pengelolaan kapasitas
+- React.js
+- Material-UI (MUI)
+- React Router DOM
+- Axios
 
-2. Monitoring dan Reporting
-   - Pemantauan status real-time
-   - Pelaporan performa
-   - Analisis penggunaan
-   - Notifikasi masalah
+### Backend
 
-## 2. Arsitektur Layanan
+- Node.js
+- Express.js
+- Sequelize ORM
 
-### Frontend Service
+### Database
 
-- Single Page Application dengan React
-- Material UI untuk antarmuka pengguna
-- Responsive design untuk akses multi-device
-- Real-time data updates
+- MySQL 8.0
 
-### Backend Service
+### Infrastructure
 
-- RESTful API dengan Express.js
-- Data validation dan sanitization
-- Error handling dan logging
-- Authentication dan authorization
-
-### Database Service
-
-- MySQL untuk penyimpanan data
-- Data persistence dengan Docker volumes
-- Backup dan recovery management
-- Data integrity checks
-
-## 3. Arsitektur Aplikasi
-
-### Frontend (React)
-
-- **Teknologi:**
-
-  - React 18
-  - Material-UI
-  - Axios untuk HTTP requests
-  - React Router untuk navigasi
-
-- **Fitur:**
-  - Dashboard untuk monitoring
-  - CRUD operasi untuk Axon
-  - Filtering dan searching
-  - Visualisasi data
-
-### Backend (Express.js)
-
-- **Teknologi:**
-
-  - Express.js
-  - Sequelize ORM
-  - MySQL2 driver
-  - CORS middleware
-
-- **Endpoints:**
-  - GET /api/axons - List semua Axon
-  - GET /api/axons/:id - Detail Axon
-  - POST /api/axons - Tambah Axon
-  - PUT /api/axons/:id - Update Axon
-  - DELETE /api/axons/:id - Hapus Axon
-
-## 4. Arsitektur Infrastruktur
-
-### Docker Container Architecture
-
-1. **Frontend Container**
-
-   - Node.js 18 Alpine base image
-   - Port 3000 exposed
-   - Hot-reload untuk development
-   - Environment variables untuk API
-
-2. **Backend Container**
-
-   - Node.js 18 Alpine base image
-   - Port 5000 exposed
-   - Connection pooling
-   - Auto-restart capability
-
-3. **MySQL Container**
-   - MySQL 8.0 image
-   - Port 3307 exposed
-   - Persistent storage
-   - Automatic initialization
-
-### Network Configuration
-
-- Internal Docker network
-- Port mapping:
-  - Frontend: 3000:3000
-  - Backend: 5000:5000
-  - MySQL: 3307:3306
-
-### Security Measures
-
-- CORS protection
-- Environment variables untuk credentials
-- Secure connection strings
-- Container isolation
-
-## 5. Deployment
-
-### Prerequisites
-
-- Docker Engine
+- Docker
 - Docker Compose
+
+## Fitur Utama
+
+1. Menampilkan daftar pelanggan
+2. Menambah data pelanggan baru
+3. Mengubah data pelanggan
+4. Menghapus data pelanggan
+5. Pencarian dan filter data pelanggan
+
+## Cara Menjalankan Aplikasi
+
+### Prasyarat
+
+- Docker dan Docker Compose terinstall
 - Git (optional)
 
-### Installation Steps
+### Langkah-langkah
 
-1. Clone repository:
-
-   ```bash
-   git clone <repository-url>
-   cd <project-directory>
-   ```
-
-2. Build dan jalankan:
+1. Clone repository (jika menggunakan Git)
 
    ```bash
-   docker-compose up --build
+   git clone [repository-url]
+   cd [repository-name]
    ```
 
-3. Akses aplikasi:
+2. Jalankan aplikasi menggunakan Docker Compose
+
+   ```bash
+   docker compose up -d
+   ```
+
+3. Akses aplikasi
    - Frontend: http://localhost:3000
    - Backend API: http://localhost:5000
-   - Database: localhost:3307
+   - MySQL Database: localhost:3307
 
-### Maintenance
+### Menghentikan Aplikasi
 
-- Regular backups
-- Log monitoring
-- Performance optimization
-- Security updates
+```bash
+docker compose down
+```
+
+## Struktur Proyek
+
+```
+.
+├── frontend/                 # React frontend application
+│   ├── src/
+│   ├── Dockerfile
+│   └── package.json
+├── backend/                  # Node.js backend application
+│   ├── controllers/
+│   ├── models/
+│   ├── routes/
+│   ├── Dockerfile
+│   └── package.json
+├── database/                # Database initialization scripts
+│   └── axon/
+├── docker-compose.yml       # Docker compose configuration
+└── README.md
+```
+
+## API Endpoints
+
+### Customers
+
+- GET `/api/customers` - Mendapatkan semua data customer
+- GET `/api/customers/:id` - Mendapatkan data customer berdasarkan ID
+- POST `/api/customers` - Membuat customer baru
+- PUT `/api/customers/:id` - Mengupdate data customer
+- DELETE `/api/customers/:id` - Menghapus data customer
+
+## Kontribusi
+
+Jika Anda ingin berkontribusi pada proyek ini, silakan ikuti langkah-langkah berikut:
+
+1. Fork repository
+2. Buat branch baru (`git checkout -b feature/AmazingFeature`)
+3. Commit perubahan (`git commit -m 'Add some AmazingFeature'`)
+4. Push ke branch (`git push origin feature/AmazingFeature`)
+5. Buat Pull Request
+
+## Lisensi
+
+Distributed under the MIT License. See `LICENSE` for more information.

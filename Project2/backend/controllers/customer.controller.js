@@ -42,15 +42,7 @@ exports.create = async (req, res) => {
 // Get All
 exports.findAll = async (req, res) => {
   try {
-    const customers = await Customer.findAll({
-      include: [
-        {
-          model: db.employees,
-          as: "employee",
-          attributes: ["employeeNumber", "firstName", "lastName"],
-        },
-      ],
-    });
+    const customers = await Customer.findAll();
     res.json(customers);
   } catch (err) {
     res.status(500).json({
@@ -63,15 +55,7 @@ exports.findAll = async (req, res) => {
 exports.findOne = async (req, res) => {
   const id = req.params.id;
   try {
-    const customer = await Customer.findByPk(id, {
-      include: [
-        {
-          model: db.employees,
-          as: "employee",
-          attributes: ["employeeNumber", "firstName", "lastName"],
-        },
-      ],
-    });
+    const customer = await Customer.findByPk(id);
     if (customer) {
       res.json(customer);
     } else {

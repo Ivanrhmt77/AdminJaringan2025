@@ -8,6 +8,9 @@ services:
     volumes:
       - ./frontend:/app
       - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - WATCHPACK_POLLING=true
     depends_on:
       - backend
 
@@ -21,7 +24,7 @@ services:
     environment:
       - DB_HOST=mysql
       - DB_USER=root
-      - DB_PASSWORD=axonpassword
+      - DB_PASSWORD=admin
       - DB_NAME=classicmodels
     depends_on:
       - mysql
@@ -31,7 +34,7 @@ services:
     ports:
       - "3307:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=axonpassword
+      - MYSQL_ROOT_PASSWORD=admin
       - MYSQL_DATABASE=classicmodels
     volumes:
       - mysql_data:/var/lib/mysql

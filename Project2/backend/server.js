@@ -8,7 +8,6 @@ const app = express();
 // Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
 // Database sync
 db.sequelize
@@ -22,11 +21,6 @@ db.sequelize
 
 // Routes
 app.use("/api/customers", require("./routes/customer.routes"));
-app.use("/api/employees", require("./routes/employee.routes"));
-app.use("/api/offices", require("./routes/office.routes"));
-app.use("/api/orders", require("./routes/order.routes"));
-app.use("/api/orderDetails", require("./routes/orderDetail.routes"));
-app.use("/api/payments", require("./routes/payment.routes"));
 
 // Basic route
 app.get("/", (req, res) => {

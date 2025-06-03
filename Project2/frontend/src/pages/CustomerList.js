@@ -29,10 +29,15 @@ function CustomerList() {
     fetch("http://localhost:5000/api/customers")
       .then((response) => response.json())
       .then((data) => {
+        console.log("Received customers data:", data);
+        if (!Array.isArray(data)) {
+          throw new Error("Data yang diterima bukan array");
+        }
         setCustomers(data);
         setLoading(false);
       })
       .catch((err) => {
+        console.error("Error fetching customers:", err);
         setError(err.message);
         setLoading(false);
       });

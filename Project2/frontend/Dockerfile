@@ -4,10 +4,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm install
+# Install dependencies
+RUN npm install --legacy-peer-deps --force
 
 COPY . .
 
 EXPOSE 3000
+
+ENV NODE_ENV=development
+ENV CI=true
 
 CMD ["npm", "start"] 
